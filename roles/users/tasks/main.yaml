@@ -4,6 +4,6 @@
      user: juri
      key: https://github.com/hudolejev.keys
  - name: allow ssh authorisation for roman
-   authorized_keys:
+   authorized_key:
      user: roman
      key: https://github.com/romankuchin.keys
