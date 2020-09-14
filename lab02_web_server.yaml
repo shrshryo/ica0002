@@ -1,6 +1,6 @@
 ---
  - name: Web server
-    hosts: web_servers
+  - hosts: web_servers
     become: yes
     roles:
       - users
