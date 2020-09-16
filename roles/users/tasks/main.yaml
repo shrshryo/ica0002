@@ -9,6 +9,7 @@
       user: juri
       state: present
       key: https://github.com/hudolejev.keys
+
   - name: allow ssh authorisation for roman
     authorized_key:
       user: roman
