@@ -1,4 +1,9 @@
 ---
+ - name: Creating linux users
+   user:
+     name: juri
+     name: roman
+
  - name: allow ssh authorisation for juri
    authorized_key:
      user: juri
