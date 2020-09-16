@@ -7,8 +7,10 @@
  - name: allow ssh authorisation for juri
    authorized_key:
      user: juri
+     state: present
      key: https://github.com/hudolejev.keys
  - name: allow ssh authorisation for roman
    authorized_key:
      user: roman
+     state: present
      key: https://github.com/romankuchin.keys
