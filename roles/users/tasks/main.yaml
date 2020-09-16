@@ -1,7 +1,10 @@
 ---
-  - name: Creating linux users
+  - name: add user Juri
     user:
       name: juri
+  
+  - name: add user Roman
+    user:
       name: roman
 
   - name: allow ssh authorisation for juri
