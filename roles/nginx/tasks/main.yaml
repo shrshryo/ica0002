@@ -1,6 +1,6 @@
 ---
  - name: ensrue nginx is installed and up to date
-   apt
+   apt:
     name: nginx
  - name: start nginx
    service:
