@@ -1,7 +1,8 @@
 ---
  - name: ensrue nginx is installed and up to date
-   apt: name=nginx
+   apt
+    name: nginx
  - name: start nginx
    service:
-      name: nginx
-      state: started
+     name: nginx
+     state: started
