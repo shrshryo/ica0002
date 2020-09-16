@@ -1,8 +1,55 @@
----
- - name: ensrue nginx is installed and up to date
-   apt:
+- name: Ensure nginx is installed and in working state
+  apt: 
     name: nginx
- - name: start nginx
-   service:
-     name: nginx
-     state: started
+    
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+    
+- name: create directory
+  file:
+    path: /home/ubuntu/static-site
+    state: directory
+    remote_src: yes
+    
+- name: create a nginx config file with the contents
+  copy:
+    dest: "/home/ubuntu/static_site.cfg"
+    content: |
+      server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /home/ubuntu/static-site;
+        server_name _;
+        location / {
+          try_files $uri $uri/ =404;
+        }
+       } 
+       
+- name: copy the nginx config file and restart nginx
+  copy:
+    src: /home/ubuntu/static_site.cfg
+    dest: /etc/nginx/sites-available/static_site.cfg
+    remote_src: yes
+  become: yes
+  
+- name: create symlink
+  file:
+    src: /etc/nginx/sites-available/static_site.cfg
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+    remote_src: yes
+  become: yes
+  
+- name: copy the content of the web site
+  copy:
+    src: ../files/index.html
+    dest: /home/ubuntu/static-site
+    remote_src: no
+    
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+  become: yes
