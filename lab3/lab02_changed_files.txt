@@ -1,0 +1,5 @@
+/home/juri added
+/home/roman added
+/home/juri/.ssh/authorized_keys changed
+/home/roman/.ssh/authorized_keys changed
+nginx changed
