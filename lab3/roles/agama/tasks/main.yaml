@@ -1,0 +1,6 @@
+---
+  - hosts: agama
+    tasks:
+    - name: Deploying the AGAMA application for agama
+      file: /opt/agama
+      state: directory
