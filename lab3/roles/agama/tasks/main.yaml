@@ -1,6 +1,19 @@
 ---
-  - hosts: agama
-    tasks:
-    - name: Deploying the AGAMA application for agama
-      file: /opt/agama
+  - name: add user agama
+    user:
+      name: agama
+
+  - name: creating directory /opt/agama
+    file:
+      path: /opt/agama
       state: directory
+      owner: agama
+
+    - name: installing dependencies
+      apt:
+        name: install python3-flask-sqlalchemy
+
+    - name: downloading agama
+      get_url:
+        url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+        dest: /opt/agama/agama.py
