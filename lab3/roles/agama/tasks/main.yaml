@@ -9,11 +9,11 @@
       state: directory
       owner: agama
 
-    - name: installing dependencies
-      apt:
-        name: install python3-flask-sqlalchemy
+   - name: installing dependencies
+     apt:
+       name: install python3-flask-sqlalchemy
 
-    - name: downloading agama
-      get_url:
-        url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
-        dest: /opt/agama/agama.py
+   - name: downloading agama
+     get_url:
+       url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+       dest: /opt/agama/agama.py
