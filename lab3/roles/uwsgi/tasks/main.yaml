@@ -16,3 +16,15 @@
      src: ansible.cfg
      dst: /etc/uwsgi/apps-enabled/agama.ini
    notify: restart uwsgi
+
+ - name: ensure that uwsgi is enabled
+   become: yes
+   service:
+     name: uwsgi
+     enabled: yes
+
+ - name: ensure that uwsgi is started
+   become: yes
+   service:
+     name: uwsgi
+     state: started   
