@@ -13,7 +13,7 @@
 
  - name: add uwsgi config file
    copy:
-     src: ansible.cfg
+     src: agama.ini
      dst: /etc/uwsgi/apps-enabled/agama.ini
    notify: restart uwsgi
 
