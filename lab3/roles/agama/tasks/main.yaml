@@ -5,6 +5,7 @@
       system: yes
 
   - name: creating directory /opt/agama
+    become: yes
     file:
       path: /opt/agama
       state: directory
