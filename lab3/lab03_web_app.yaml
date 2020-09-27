@@ -1,6 +1,6 @@
 ---
-- name: Web app
-  hosts: app_servers
-  roles:
-    - agama
-  become: yes
+ - name: Web app
+   hosts: app_servers
+   roles:
+     - agama
+   become: yes

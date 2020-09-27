@@ -1,0 +1,12 @@
+---
+  - name: install uwsgi
+    become: yes
+    apt:
+      name: uwsgi
+    state: latest
+ 
+  - name: install uwsgi-plugin-python-3
+    become: yes
+    apt:
+      name: uwsgi-plugin-python-3
+    state: latest 
