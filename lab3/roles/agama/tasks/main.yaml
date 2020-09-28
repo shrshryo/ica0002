@@ -14,7 +14,7 @@
   - name: installing dependencies
     become: yes
     apt:
-      name: install python3-flask-sqlalchemy
+      name: python3-flask-sqlalchemy
       state: latest
 
   - name: downloading agama
