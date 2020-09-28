@@ -3,13 +3,13 @@
     become: yes
     apt:
       name: uwsgi
-    state: latest
+      state: latest
 
   - name: install uwsgi-plugin-python3
     become: yes
     apt:
       name: uwsgi-plugin-python3
-    state: latest
+      state: latest
 
  - name: add uwsgi config file
    copy:
