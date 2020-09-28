@@ -53,3 +53,21 @@
     name: nginx
     state: restarted
   become: yes
+
+- name: Copy nginx-uWSGI config file and resart the service
+  copy:
+    src: Nginx_uWSGI.cfg
+    dest: /etc/nginx/sites-available/Nginx_uWSGI.cfg
+  notify: restart nginx
+
+- name: Create symlink
+  file: 
+    src: /etc/nginx/sites-available/Nginx_uWSGI.cfg
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+  become: yes

@@ -14,7 +14,7 @@
   - name: add uwsgi config file
     copy:
       src: agama.ini
-      dst: /etc/uwsgi/apps-enabled/agama.ini
+      dest: /etc/uwsgi/apps-enabled/agama.ini
     notify: restart uwsgi
 
   - name: ensure that uwsgi is enabled
