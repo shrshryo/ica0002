@@ -1,7 +1,5 @@
 ---
   - name: Ansible connection test
-    hosts: 
-      - shrshryo-1
-      - shrshryo-2
+    hosts: all
     roles:
       - test_connection
