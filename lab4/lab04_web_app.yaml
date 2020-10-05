@@ -1,4 +1,10 @@
 ---
+ - name: Database server
+   hosts: db_servers
+   roles:
+     - mysql
+   become: yes
+
  - name: Web app
    hosts: app_servers
    roles:
@@ -6,15 +12,3 @@
      - uwsgi
      - nginx
    become: yes
-
- - name: Database server
-   ...
-   hosts: db_servers
-   roles:
-     - mysql
-
- - name: Web app
-   ...
-   hosts: app_servers
-   roles:
-     - ...

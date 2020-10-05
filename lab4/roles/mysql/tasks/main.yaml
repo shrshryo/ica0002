@@ -1,0 +1,51 @@
+---
+ - name: install MySQL server
+   become: yes
+   apt:
+     name: mysql-server
+
+ - name: install python3-pymysql
+   become: yes
+   apt:
+     name: python3-pymysql
+
+ - name: overrides the MySQL config file
+   copy:
+     dest: /etc/mysql/mysql.conf.d/override.cnf
+     content: |
+       [mysqld]
+       bind-address = 0.0.0.0
+  
+ - name: MySQL database
+   become: yes
+   mysql_db:
+     name: "{{ mysql_database }}"
+     login_unix_socket: /var/run/mysqld/mysqld.sock
+     state: present
+
+ - name: Create a MySQL user for the web application
+   become: yes
+   mysql_user:
+     name: "{{ mysql_database }}"
+     password: "{{ mysql_password }}"
+     login_unix_socket: /var/run/mysqld/mysqld.sock
+     host: "%"
+     priv: "{{ mysql_database }}.*:ALL"
+     state: present
+
+ - name: restart mysql
+   service:
+     name: mysql
+     state: restarted
+     
+ - name: ensure that MySQL is enabled
+   become: yes
+   service:
+     name: mysql      
+     enabled: yes
+
+ - name: ensure that MySQL is started
+   become: yes
+   service:
+     name: mysql
+     state: started
