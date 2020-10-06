@@ -24,6 +24,18 @@
        };
    notify: restart dns
 
+#  - name: Show some variables
+#    copy:
+#      dest: /etc/resolv.conf
+#      content: |
+#        nameserver {{ hostvars['shrshryo-1']['ansible_default_ipv4']['address'] }}
+
+#  - name: Show some variables
+#    copy:
+#      dest: /etc/resolv.conf
+#      content: |
+#        nameserver {{ hostvars['shrshryo-2']['ansible_default_ipv4']['address'] }}
+
  - name: ensure that bind9 is enabled
    become: yes
    service:
