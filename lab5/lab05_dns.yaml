@@ -1,0 +1,29 @@
+---
+ - name: Database server
+   hosts: db_servers
+   roles:
+     - mysql
+   become: yes
+
+ - name: Web app
+   hosts: app_servers
+   roles:
+     - agama
+     - uwsgi
+     - nginx
+   become: yes
+
+ - name: DNS server
+   hosts: dns_server
+   roles:
+     - bind
+   become: yes
+   gather_facts: no
+   tasks:
+     - debug:
+         var: hostvars['shrshryo-1']
+
+ - name: Collect info about all VMs
+   hosts: all
+   tasks:
+     - setup:

@@ -2,17 +2,36 @@
  - name: install bind9
    become: yes
    apt:
-     install: bind9
+     name: bind9
      state: latest
+
+ - name: Configure access rules for DNS server
+   become: yes
+   copy:
+     dest: /etc/bind/named.conf.options
+     content: |
+       acl local { 192.168.42.0/24; 127.0.0.0/8; };
+       options {
+            directory "/etc/bind/named.conf.options";
+            allow-query { local; };
+            forwarders {
+              {% for f in dns_forwarders %}
+                {{ f }};
+              {% endfor %}
+            };
+            dnssec-validation no;
+            auth-nxdomain no;    # conform to RFC1035
+       };
+   notify: restart dns
 
  - name: ensure that bind9 is enabled
    become: yes
-   service
-     name: bind
+   service:
+     name: bind9
      enabled: yes
 
  - name: ensure that bind9 is started
    become: yes
    service:
-     name: bind
+     name: bind9
      state: started
