@@ -34,18 +34,18 @@
 
  - name: create config file
    file:
-     path: /etc/bind/db.ryo
+     path: /etc/bind/db.jetstreamer
      state: touch
      remote_src: yes
 
  - name: Configure master zone
    become: yes
    copy:
-     dest: /etc/bind/db.ryo.com
+     dest: /etc/bind/db.jetstreamer
      content : |
        zone "0.0.127.in-addr.arpa" {
             type master;
-            file "db.ryo.com";
+            file "db.jetstreamer.ryo";
             notify no;
        }
    notify: restart dns
