@@ -29,22 +29,18 @@
    tasks:
      - setup:
 
-#  - name: shrshryo-1
-#    hosts: shrshryo-1
-#    become: yes
-#    tasks:
-#      - name: bind resolv.conf
-#        template:
-#          src: resolv.conf
-#          dest: /etc/resolv.conf
-#          #remote_src: yes
+ - name: shrshryo-1
+   hosts: shrshryo-1
+   gather_facts: no
+   become: yes
+   tasks:
+     - debug:
+         var: hostvars['shrshryo-1']
 
-#  - name: shrshryo-2
-#    hosts: shrshryo-2
-#    become: yes
-#    tasks:
-#      - name: bind resolv.conf
-#        template:
-#          src: resolv.conf
-#          dest: /etc/resolv.conf
-#          #remote_src: yes
+ - name: shrshryo-2
+   hosts: shrshryo-2
+   gather_facts: no
+   become: yes
+   tasks:
+     - debug:
+         var: hostvars['shrshryo-2']
