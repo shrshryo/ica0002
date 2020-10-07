@@ -22,6 +22,7 @@
    tasks:
      - debug:
          var: hostvars['shrshryo-1']
+         var: hostvars['shrshryo-2']
 
  - name: Collect info about all VMs
    hosts: all
@@ -32,16 +33,18 @@
 #    hosts: shrshryo-1
 #    become: yes
 #    tasks:
-#      - copy:
+#      - name: bind resolv.conf
+#        template:
 #          src: resolv.conf
 #          dest: /etc/resolv.conf
-#          remote_src: yes
+#          #remote_src: yes
 
 #  - name: shrshryo-2
 #    hosts: shrshryo-2
 #    become: yes
 #    tasks:
-#      - copy:
+#      - name: bind resolv.conf
+#        template:
 #          src: resolv.conf
 #          dest: /etc/resolv.conf
-#          remote_src: yes
+#          #remote_src: yes
