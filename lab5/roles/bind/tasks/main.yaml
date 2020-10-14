@@ -34,14 +34,14 @@
 
  - name: create config file
    file:
-     path: /etc/bind/db.jetstreamer
+     path: /etc/bind/db.jetstreamer.ryo
      state: touch
      remote_src: yes
 
  - name: Configure master zone
    become: yes
    copy:
-     dest: /etc/bind/db.jetstreamer
+     dest: /etc/bind/db.jetstreamer.ryo
      content : |
        zone "0.0.127.in-addr.arpa" {
             type master;
