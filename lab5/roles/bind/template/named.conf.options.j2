@@ -1,0 +1,10 @@
+options {
+	directory "/var/cache/bind";
+	forwarders {
+      {% for f in dns_forwarders %}
+	    {{ f }};
+      {% endfor %}
+	};
+	dnssec-validation no;
+	auth-nxdomain no;    # conform to RFC1035
+};
