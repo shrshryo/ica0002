@@ -1,33 +1,43 @@
 ---
- - name: Database server
-   hosts: db_servers
-   roles:
-     - mysql
-   become: yes
+#  - name: Database server
+#    hosts: db_servers
+#    roles:
+#      - mysql
+#    become: yes
 
- - name: Web app
-   hosts: app_servers
-   roles:
-     - agama
-     - uwsgi
-     - nginx
-   become: yes
+#  - name: Web app
+#    hosts: app_servers
+#    roles:
+#      - agama
+#      - uwsgi
+#      - nginx
+#    become: yes
+ - name: Collection information
+   hosts: all
+   tasks:
+     - setup:
 
  - name: DNS server
    hosts: dns_server
    roles:
      - bind
    become: yes
-   gather_facts: no
-   tasks:
-     - debug:
-         var: hostvars['shrshryo-1']
-         var: hostvars['shrshryo-2']
+  #  gather_facts: no
+  #  tasks:
+  #    - debug:
+        #  var: hostvars['shrshryo-1']
+        #  var: hostvars['shrshryo-2']
 
- - name: Collect info about all VMs
+ - name: resolv
    hosts: all
-   tasks:
-     - setup:
+   roles:
+     - resolv
+   become: yes
+
+#  - name: Collect info about all VMs
+#    hosts: all
+#    tasks:
+#      - setup:
 
 #  - name: shrshryo-1
 #    hosts: shrshryo-1
@@ -39,10 +49,10 @@
 #          dest: /etc/resolv.conf
 #          remote_src: yes
 
- - name: shrshryo-2
-   hosts: shrshryo-2
-   gather_facts: no
-   become: yes
-   tasks:
-     - debug:
-         var: hostvars['shrshryo-2']
+#  - name: shrshryo-2
+#    hosts: shrshryo-2
+#    gather_facts: no
+#    become: yes
+#    tasks:
+#      - debug:
+#          var: hostvars['shrshryo-2']

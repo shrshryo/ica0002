@@ -1,0 +1,13 @@
+$TTL	604800
+{{ domain }}.	IN	SOA	{{ domain }}. admin.{{ domain }}. (
+			      2		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+	IN	NS	shrshryo-2.{{ domain }}.
+	IN	A	{{ dns_record[1].ip }}
+{% for r in dns_record %}
+{{ r.name }}   				 IN  {{ r.type }} {{ r.ip }}
+{% endfor %}

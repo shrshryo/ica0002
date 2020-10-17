@@ -9,8 +9,5 @@ mysql_password: !vault |
           3534636362616236380a666663653365333762343830353965386361393432343931653266636337
           3764
 
-dns_forwarders:
-  - 1.1.1.1
-  - 8.8.8.8
-  - 9.9.9.9
-  - 9.9.9.10
+domain: jetstreamer.ryo
+startup_name: jetstreamer
