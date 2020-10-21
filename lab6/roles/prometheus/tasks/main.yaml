@@ -1,0 +1,16 @@
+---
+- name: Install Prometheus
+  apt: 
+    name: prometheus
+
+- name: Configure Prometheus
+  template:
+    src: prometheus.yaml.j2
+    dest: /etc/prometheus/prometheus.yaml
+  notify: Restart Prometheus
+
+- name: Adjust Prometheus service
+  copy:
+    src: prometheus
+    dest: /etc/default/prometheus
+  notify: Restart Prometheus

@@ -1,0 +1,6 @@
+scrape_configs:
+    static_configs:
+      - targets: 
+      {% for host in groups['all'] %}
+        - '{{ hostvars[host]['inventory_hostname'] }}.{{ domain }}:9100'
+      {% endfor %}

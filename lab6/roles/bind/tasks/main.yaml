@@ -1,0 +1,77 @@
+---
+ - name: install bind9
+   become: yes
+   apt:
+     name: bind9
+     state: latest
+
+ - name: Configuring DNS forwarders
+   become: yes
+   copy:
+     dest: /etc/bind/named.conf.options
+     content: |
+       options {
+            directory "/etc/bind/named.conf.options";
+            forwarders {
+              {% for f in dns_forwarders %}
+                {{ f }};
+              {% endfor %}
+            };
+            dnssec-validation no;
+            auth-nxdomain no;    # conform to RFC1035
+       };
+
+ - name: Configuring acess rules for DNS server
+   become: yes
+   copy:
+     dest: /etc/bind/named.conf.options
+     content : |
+       acl local { 192.168.42.0/24; 127.0.0.0/8; };
+       options {
+         directory "/etc/bind/named.conf.options";
+         allow-query { local; };
+       };
+
+ - name: create config file
+   file:
+     path: /etc/bind/db.jetstreamer.ryo
+     state: touch
+     remote_src: yes
+
+ - name: Configure master zone
+   become: yes
+   copy:
+     dest: /etc/bind/db.jetstreamer.ryo
+     content : |
+       zone "0.0.127.in-addr.arpa" {
+            type master;
+            file "db.jetstreamer.ryo";
+            notify no;
+       }
+   notify: restart dns
+
+ - name: Show some variables
+   copy:
+     dest: /etc/resolv.conf
+     content: |
+       nameserver {{ hostvars['shrshryo-1']['ansible_default_ipv4']['address'] }}
+     remote_src: yes
+
+ - name: Show some variables
+   copy:
+     dest: /etc/resolv.conf
+     content: |
+       nameserver {{ hostvars['shrshryo-2']['ansible_default_ipv4']['address'] }}
+     remote_src: yes
+
+ - name: ensure that bind9 is enabled
+   become: yes
+   service:
+     name: bind9
+     enabled: yes
+
+ - name: ensure that bind9 is started
+   become: yes
+   service:
+     name: bind9
+     state: started

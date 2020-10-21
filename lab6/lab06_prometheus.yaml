@@ -1,0 +1,18 @@
+---
+- name: Install Node Eporters
+  hosts: all
+  roles:
+    - node_exporter
+  become: yes
+
+- name: Install and configure Prometheus
+  hosts: prometheus
+  roles:
+    - prometheus
+  become: yes
+
+- name: Install Nginx and configure reverse proxy
+  hosts: all
+  roles:
+    - reverse
+  become: yes
