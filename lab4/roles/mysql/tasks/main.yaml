@@ -9,13 +9,20 @@
    apt:
      name: python3-pymysql
 
- - name: overrides the MySQL config file
-   copy:
-     dest: /etc/mysql/mysql.conf.d/override.cnf
-     content: |
-       [mysqld]
-       bind-address = 0.0.0.0
+#  - name: overrides the MySQL config file
+#    copy:
+#      dest: /etc/mysql/mysql.conf.d/override.cnf
+#      content: |
+#        [mysqld]
+#        bind-address = 0.0.0.0
+#    notify: restart mysql
   
+ - name: overrides the MySQL config file
+   template:
+     src: override.cnf
+     dest: /etc/mysql/mysql.conf.d/override.cnf
+   notify: restart mysql
+
  - name: MySQL database
    become: yes
    mysql_db:
@@ -32,11 +39,6 @@
      host: "%"
      priv: "{{ mysql_database }}.*:ALL"
      state: present
-
- - name: restart mysql
-   service:
-     name: mysql
-     state: restarted
      
  - name: ensure that MySQL is enabled
    become: yes

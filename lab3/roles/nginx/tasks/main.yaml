@@ -1,73 +1,20 @@
+---
 - name: Ensure nginx is installed and in working state
   apt: 
     name: nginx
     
+- name: Serve index.html
+  copy:
+    src: ../files
+    dest: /var/www/html
+  
+- name: Copy Nginx configuration
+  copy:
+    src: default
+    dest: /etc/nginx/sites-enabled/default
+  notify: Restart Nginx
+
 - name: start nginx
   service:
     name: nginx
     state: started
-    
-- name: create directory
-  file:
-    path: /home/ubuntu/static-site
-    state: directory
-    remote_src: yes
-    
-- name: create a nginx config file with the contents
-  copy:
-    dest: "/home/ubuntu/static_site.cfg"
-    content: |
-      server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /home/ubuntu/static-site;
-        server_name _;
-        location / {
-          try_files $uri $uri/ =404;
-        }
-       } 
-       
-- name: copy the nginx config file and restart nginx
-  copy:
-    src: /home/ubuntu/static_site.cfg
-    dest: /etc/nginx/sites-available/static_site.cfg
-    remote_src: yes
-  become: yes
-  
-- name: create symlink
-  file:
-    src: /etc/nginx/sites-available/static_site.cfg
-    dest: /etc/nginx/sites-enabled/default
-    state: link
-    remote_src: yes
-  become: yes
-  
-- name: copy the content of the web site
-  copy:
-    src: ../files/index.html
-    dest: /home/ubuntu/static-site
-    remote_src: no
-    
-- name: restart nginx
-  service:
-    name: nginx
-    state: restarted
-  become: yes
-
-- name: Copy nginx-uWSGI config file and resart the service
-  copy:
-    src: Nginx_uWSGI.cfg
-    dest: /etc/nginx/sites-available/Nginx_uWSGI.cfg
-  notify: restart nginx
-
-- name: Create symlink
-  file: 
-    src: /etc/nginx/sites-available/Nginx_uWSGI.cfg
-    dest: /etc/nginx/sites-enabled/default
-    state: link
-
-- name: restart nginx
-  service:
-    name: nginx
-    state: restarted
-  become: yes
