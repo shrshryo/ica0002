@@ -14,3 +14,10 @@
     gather_facts: no
     roles:
       - Nginx_Exporter
+
+- name: Install Grafana
+  hosts: grafana
+  become: yesgather_facts: no
+  roles:
+    - Grafana
+  tags: grafana
