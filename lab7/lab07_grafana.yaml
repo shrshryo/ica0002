@@ -1,0 +1,16 @@
+---
+- name: Database server
+  hosts:
+  become: yes
+  gather_facts: no
+  roles:
+    - MySQL_Exporter
+  tags:
+    - mysql
+
+- name: Nginx Exporter
+  hosts:
+    become: yes
+    gather_facts: no
+    roles:
+      - Nginx_Exporter
