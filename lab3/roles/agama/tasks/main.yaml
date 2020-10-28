@@ -3,6 +3,7 @@
     user:
       name: agama
       system: yes
+      state: present
 
   - name: creating directory /opt/agama
     become: yes
@@ -21,4 +22,4 @@
     become: yes
     get_url:
       url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
-      dest: /opt/agama
+      dest: /opt/agama/agama.py

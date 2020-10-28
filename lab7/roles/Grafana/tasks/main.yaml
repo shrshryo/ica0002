@@ -14,7 +14,7 @@
   apt:
     deb: /tmp/grafana_7.2.1_amd64.db
 
-- name: Start
+- name: Enabled
   service:
     name: grafana-server
     state: started

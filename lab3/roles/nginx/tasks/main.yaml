@@ -2,6 +2,8 @@
 - name: Ensure nginx is installed and in working state
   apt: 
     name: nginx
+    state: latest
+    update_cache: yes
     
 - name: Serve index.html
   copy:
@@ -12,9 +14,10 @@
   copy:
     src: default
     dest: /etc/nginx/sites-enabled/default
-  notify: Restart Nginx
+  notify: restart nginx
 
 - name: start nginx
   service:
     name: nginx
     state: started
+    enabled: yes

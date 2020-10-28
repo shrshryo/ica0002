@@ -11,6 +11,11 @@
       name: uwsgi-plugin-python3
       state: latest
 
+  - name: Create a directory
+    file:
+      path: /etc/uwsgi/apps-enabled
+      state: directory
+
   - name: add uwsgi config file
     copy:
       src: agama.ini
@@ -27,4 +32,5 @@
     become: yes
     service:
       name: uwsgi
-      state: started   
+      state: started
+      enabled: yes   

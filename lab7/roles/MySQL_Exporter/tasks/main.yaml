@@ -1,5 +1,5 @@
 ---
-- name: install MySQL exporter
+- name: install MySQL Exporter
   become: yes
   apt:
     name: prometheus-mysqld-exporter
