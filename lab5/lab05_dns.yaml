@@ -23,11 +23,7 @@
    roles:
      - bind
    become: yes
-  #  gather_facts: no
-  #  tasks:
-  #    - debug:
-        #  var: hostvars['shrshryo-1']
-        #  var: hostvars['shrshryo-2']
+   gather_facts: no
 
  - name: resolv
    hosts: all

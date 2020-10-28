@@ -5,7 +5,7 @@
      name: bind9
      state: latest
 
- - name: Configure DNS forwarders, ACL and master zone
+ - name: Configure DNS forwarders, access rules and master zone
    template:
      src: named.conf.options.j2
      dest: /etc/bind/named.conf.options
@@ -22,14 +22,9 @@
      dest: /etc/bind/db.{{ startup_name }}/db.{{ startup_name }}.zone
    notify: restart dns
 
- - name: ensure that bind9 is enabled
+ - name: Ensure that bind9 is started and enabled
    become: yes
    service:
      name: bind9
      enabled: yes
-
- - name: ensure that bind9 is started
-   become: yes
-   service:
-     name: bind9
      state: started
