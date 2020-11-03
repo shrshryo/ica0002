@@ -19,3 +19,15 @@ mysql_exporter_password: !vault |
 
 domain: jetstreamer.ryo
 startup_name: jetstreamer
+
+dns_cnames:
+  - cname: ns
+    real: "{{ groups['dns_servers'][0] }}"
+  - cname: prometheus
+    real: "{{ groups['prometheus'][0] }}"
+  - cname: db
+    real: "{{ groups['mysql_servers'][0] }}"
+  - cname: www
+    real: "{{ groups['web_servers'][0] }}"
+  - cname: grafana
+    real: "{{ groups['grafana'][0] }}"

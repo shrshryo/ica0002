@@ -5,7 +5,7 @@
 
 - name: Nginx config
   template:
-    src: node_exporter
+    src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify: 
     - Restart Nginx
