@@ -1,0 +1,22 @@
+---
+- name: Package
+  apt:
+    name: 
+      - influxdb
+      - influxdb-client
+
+- name: Telegraf package
+  get_url:
+    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.16.1-1_amd64.deb
+    dest: /opt/telegraf_1.16.1-1_amd64.deb
+
+- name: Telegraf package installed
+  apt:
+    deb: /opt/telegraf_1.16.1-1_amd64.deb
+
+- name:  Telegraf config
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+  notify:
+    - Restart Telegraf
