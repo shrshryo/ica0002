@@ -7,12 +7,12 @@
 
 - name: Telegraf package
   get_url:
-    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.16.1-1_amd64.deb
-    dest: /opt/telegraf_1.16.1-1_amd64.deb
+    url: https://dl.influxdata.com/telegraf/releases/telegraf_1.16.2-1_amd64.deb
+    dest: /opt/telegraf_1.16.2-1_amd64.deb
 
 - name: Telegraf package installed
   apt:
-    deb: /opt/telegraf_1.16.1-1_amd64.deb
+    deb: /opt/telegraf_1.16.2-1_amd64.deb
 
 - name:  Telegraf config
   template:

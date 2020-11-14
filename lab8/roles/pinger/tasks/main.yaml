@@ -1,0 +1,34 @@
+---
+- name: fping installation
+  apt:
+    name: fping
+    state: latest
+
+- name: User pinger
+  user:
+    name: pinger
+
+- name: Creation of pinger config directory
+  file:
+    path: /etc/pinger
+    state: directory
+    mode: '0751'
+
+- name: pinger config
+  template:
+    src: pinger.conf.j2
+    dest: /etc/pinger/pinger.conf
+
+- name: pinger script
+  template:
+    src: pinger.sh.j2
+    dest: /usr/local/bin/pinger
+    mode: '0755'
+
+- name: pinger service
+  template:
+    src: pinger.service.j2
+    dest: /etc/systemd/system/pinger.service
+  notify:
+    - Systemctl daemon-reload
+    - Restart pinger
