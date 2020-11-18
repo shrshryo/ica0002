@@ -12,3 +12,6 @@ dns_record:
   - name: shrshryo-2
     type: A
     ip: 192.168.42.55
+  - name: backup
+    type: A
+    ip: 192.168.42.39
