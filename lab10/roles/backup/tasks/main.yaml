@@ -1,0 +1,31 @@
+---
+- name: User backup
+  user:
+    name: backup
+    home: /home/backup
+    shell: /bin/bash
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+
+- name: Create additional directories backup
+  file:
+     path: /home/backup/backup
+     state: directory
+
+- name: Create additional directories restore
+  file:
+     path: /home/backup/restore
+     state: directory
+
+# - name: Add backup to grafana and prometheus group
+#   user:
+#     name: backup
+#     groups: grafana,prometheus
+#   when: inventory_hostname == "shrshryo-1"
+
+- name: Install duplicity
+  become: yes
+  apt:
+    name: duplicity
+    state: latest

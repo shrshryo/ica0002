@@ -11,12 +11,13 @@
   notify: Restart MySQL Exporter
 
 - name: MySQL Exporter user
+  become: yes
   mysql_user:
     name: "ryo2"
     password: "{{ mysql_exporter_password }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
     priv: "*.*:PROCESS,REPLICATIONS CLIENT,SELECT"
-  no_log: True
+  # no_log: True
   notify: Restart MySQL Exporter
 
 - name: Enabled

@@ -1,0 +1,64 @@
+mysql_host: 192.168.42.55
+mysql_database: agama
+mysql_user: agama
+mysql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34346131343761633931646437326235303162333039356435646538393736316239363539343265
+          6165303966646331336265346263393761393665303965610a346233623765323934323330376466
+          64633463323039316537376464643235326366663834663762636661363566613933323263366462
+          3834643937373530320a653839373933333362663435376138663133666362346338303039333765
+          6136
+
+mysql_exporter_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          36383935636532336463353435366637636365396666656539343237626233333033383765623337
+          3939306235363834383739386336303462393461666532650a663962363931623933313532643334
+          66356631666537323639343461343539623133613737613035363730363335393061343634373461
+          3330336535306163630a333439326233383432323232313233346465663761326365636261346232
+          6363
+
+mysql_user: backup
+mysql_password_backup: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38346639643664613362643438383466373138666538363865313366303930353336343037306431
+          3536386361386263326164353762376263313537646531630a653062663663376561393134363536
+          63336335616563626636363436393363666233633265656166336532303836653861303961663761
+          3332616363653132390a613532653964306464613330643238663864656238383439363339373838
+          3436
+
+domain: jetstreamer.ryo
+startup_name: jetstreamer
+
+dns_cnames:
+  - cname: ns
+    real: "{{ groups['dns_server'][0] }}"
+    type: CNAME
+  - cname: prometheus
+    real: "{{ groups['prometheus'][0] }}"
+    type: CNAME
+  - cname: db
+    real: "{{ groups['db_servers'][0] }}"
+    type: CNAME
+  - cname: www
+    real: "{{ groups['web_servers'][0] }}"
+    type: CNAME
+  - cname: grafana
+    real: "{{ groups['grafana'][0] }}"
+    type: CNAME
+
+prometheus_jobs:
+  - name: node
+    targets: "{{ groups['all'] }}"
+    port: 9100
+  - name: bind
+    targets:
+      - "{{ groups['dns_server'][0] }}"
+    port: 9119
+  - name: mysql
+    targets:
+      - "{{ groups['db_servers'][0] }}"
+    port: 9104
+  - name: www
+    targets:
+      - "{{ groups['web_servers'][0] }}"
+    port: 9113
