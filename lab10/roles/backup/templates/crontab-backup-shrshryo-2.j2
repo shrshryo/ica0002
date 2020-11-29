@@ -2,8 +2,12 @@
 
 0 2  29 * * backup influxd backup -database latency /home/backup/backup/influxdb
 
+0 2  29 * * backup mysqldump agama > /home/backup/backup/
+
+0 2  29 * * backup influxd backup rsync -a /var/lib/grafana/grafana/db /home/backup/backup/
+
 0 0 1 * * backup duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
-0 0 15 * 1-6 backup duplicity --no-encryption /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+0 0 15 * 1-6 backup duplicity --no-encryption incremental /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
 0 0 28 * * backup duplicity remove-older-than 1M rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/

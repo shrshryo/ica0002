@@ -49,6 +49,12 @@
      path: /home/backup/restore
      state: directory
 
+- name: Create additional directories influxdb
+  file:
+     path: /home/backup/backup/influxdb
+     state: directory 
+  when: inventory_hostname == "shrshryo-2"   
+
 - name: Install duplicity
   become: yes
   apt:

@@ -5,11 +5,16 @@
     name: uwsgi
     state: latest
 
-- name: install uwsgi-plugin-python3
+- name: install uwsgi
   become: yes
   apt:
     name: uwsgi-plugin-python3
     state: latest
+
+- name: install pymysql
+  apt:
+    name: python3-pymysql
+    state: latest   
 
 - name: Create a directory
   file:

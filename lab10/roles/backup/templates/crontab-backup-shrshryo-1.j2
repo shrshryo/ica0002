@@ -1,7 +1,7 @@
-0 2  29 * * backup
+0 2  29 * * backup rsync -a /var/lib/prometheus/ /home/backup/backup/
 
 0 0 1 * * backup duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
-0 0 15 * 1-6 backup duplicity --no-encryption /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+0 0 15 * 1-6 backup duplicity --no-encryption incrimental /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
 0 0 29 * * backup duplicity remove-older-than 1M rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
