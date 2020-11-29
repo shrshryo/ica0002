@@ -32,25 +32,25 @@
      priv: "{{ mysql_database }}.*:ALL"
      state: present
 
- - name: Config
-   template:
-     src: bu.my.cnf.j2
-     dest: /home/backup/.my.cnf
-     owner: backup
-     group: backup
-     mode: '0400'
-   notify: Restart MySQL Exporter
-
- - name: Create a MySQL user for the backup
-   become: yes
-   mysql_user:
-     name: "{{ mysql_database_backup }}"
-     password: "{{ mysql_password_backup }}"
-     login_unix_socket: /var/run/mysqld/mysqld.sock
-     host: "%"
-     priv: "{{ mysql_database_backup }}.*:ALL"
-     state: present
+#  - name: Create a MySQL user for backup
+#    become: yes
+#    mysql_user:
+#      name: "{{ mysql_database_backup }}"
+#      password: "{{ mysql_password_backup }}"
+#      login_unix_socket: /var/run/mysqld/mysqld.sock
+#      host: "localhost"
+#      priv: "{{ mysql_database_backup }}.*:SELECT,LOCK TABLES"
+#      state: present
      
+#  - name: Config
+#    template:
+#      src: bu.my.cnf.j2
+#      dest: /home/backup/.my.cnf
+#      owner: backup
+#      group: backup
+#      mode: '0400'
+#    notify: restart mysql    
+
  - name: ensure that MySQL is started and enabled
    become: yes
    service:
