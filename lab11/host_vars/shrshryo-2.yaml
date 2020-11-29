@@ -1,0 +1,17 @@
+dns_forwarders:
+  - 8.8.8.8
+
+subnets:
+  - 192.168.42.0/24;
+  - 127.0.0.0/8;
+
+dns_record:
+  - name: shrshryo-1
+    type: A
+    ip: 192.168.42.159
+  - name: shrshryo-2
+    type: A
+    ip: 192.168.42.55
+  - name: backup
+    type: A
+    ip: 192.168.42.39

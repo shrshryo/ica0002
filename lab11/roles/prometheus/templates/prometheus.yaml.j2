@@ -1,0 +1,9 @@
+scrape_configs:
+{% for job in prometheus_jobs %}
+  - job_name: {{ job['name'] }}
+    static_configs:
+      - targets:
+{% for target in job['targets'] %}
+        - {{ target }}.{{ domain }}:{{ job['port'] }}
+{% endfor %}
+{% endfor %}

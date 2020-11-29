@@ -1,0 +1,18 @@
+---
+- name: Install Nginx
+  apt: 
+    name: nginx
+
+- name: Nginx config
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-enabled/default
+  notify: 
+    - Restart Nginx
+
+- name: Nginx config
+  template:
+    src: stub_status.j2
+    dest: /etc/nginx/sites-enabled/stub_status
+  notify: 
+    - Restart Nginx
