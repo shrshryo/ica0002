@@ -16,7 +16,7 @@
     name: "ryo2"
     password: "{{ mysql_exporter_password }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-    priv: "*.*:PROCESS,REPLICATIONS CLIENT,SELECT"
+    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
   # no_log: True
   notify: Restart MySQL Exporter
 

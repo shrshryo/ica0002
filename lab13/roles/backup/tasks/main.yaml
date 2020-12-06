@@ -1,0 +1,74 @@
+---
+- name: User backup
+  user:
+    name: backup
+    home: /home/backup
+    shell: /bin/bash
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+
+- name: Create MySQL backup user
+  mysql_user:
+    name: "{{ mysql_database_backup }}"
+    password: "{{ mysql_password_backup }}"
+    priv: "{{ mysql_database }}.*:SELECT,LOCK TABLES"
+    host: "localhost"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  #no_log: true
+  when: inventory_hostname == "shrshryo-2"
+
+- name: Copy MySQL configuration file
+  template:
+    src: bu.my.cnf.j2
+    dest: /home/backup/.my.cnf
+    owner: backup
+    group: backup
+    mode: '0400'
+  when: inventory_hostname == "shrshryo-2"
+
+- name: Add backup to grafana and prometheus group
+  user:
+    name: backup
+    groups: grafana,prometheus
+  when: inventory_hostname == "shrshryo-1"
+
+- name: Add backup to mysql and influxdb group
+  user:
+    name: backup
+    groups: mysql, influxdb
+  when: inventory_hostname == "shrshryo-2"
+
+- name: Create additional directories backup
+  file:
+     path: /home/backup/backup
+     state: directory
+
+- name: Create additional directories restore
+  file:
+     path: /home/backup/restore
+     state: directory
+
+- name: Create additional directories influxdb
+  file:
+     path: /home/backup/backup/influxdb
+     state: directory 
+  when: inventory_hostname == "shrshryo-2"   
+
+- name: Install duplicity
+  become: yes
+  apt:
+    name: duplicity
+    state: latest
+
+- name: Crontab for shrshryo-1
+  template:
+    src: crontab-backup-shrshryo-1.j2
+    dest: /etc/cron.d/backup
+  when: inventory_hostname == "shrshryo-1"
+
+- name: Crontab for shrshryo-2
+  template:
+    src: crontab-backup-shrshryo-2.j2
+    dest: /etc/cron.d/backup
+  when: inventory_hostname == "shrshryo-2"

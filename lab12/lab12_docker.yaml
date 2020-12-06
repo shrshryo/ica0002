@@ -1,0 +1,40 @@
+---
+- name: Bind server
+  become: yes
+  gather_facts: yes
+  hosts: dns_servers
+  roles:
+    - bind
+    - resolv
+
+- name: InfluxDB
+  become: yes
+  gather_facts: yes
+  hosts: influxdb
+  roles:
+    - resolv
+    - rsyslog
+    - influxdb
+
+- name: Docker
+  become: yes
+  gather_facts: yes
+  hosts: all
+  roles:
+    - resolv
+    - rsyslog
+    - docker
+
+- name: Grafana Docker
+  hosts: grafana
+  become: yes
+  roles:
+    - grafana_docker
+    - reverse
+
+- name: Agama Docker
+  hosts: app_servers
+  become: yes
+  roles:
+    - agama_docker
+    - reverse

@@ -12,3 +12,9 @@
   notify:
     - Systemctl daemon-reload
     - Restart Nginx Exporter
+
+- name: start prometheus-nginx-exporter
+  service:
+    name: prometheus-nginx-exporter
+    state: started
+    enabled: yes

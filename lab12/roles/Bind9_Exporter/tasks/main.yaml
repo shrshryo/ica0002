@@ -1,0 +1,10 @@
+---
+- name: Package
+  apt:
+    name: prometheus-bind-exporter
+
+- name: Enabled
+  service:
+    name: prometheus-bind-exporter
+    state: started
+    enabled: yes

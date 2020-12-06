@@ -30,7 +30,7 @@
 - name: Add backup to grafana and prometheus group
   user:
     name: backup
-    groups: grafana,prometheus
+    groups: grafana, prometheus
   when: inventory_hostname == "shrshryo-1"
 
 - name: Add backup to mysql and influxdb group
@@ -42,11 +42,15 @@
 - name: Create additional directories backup
   file:
      path: /home/backup/backup
+     owner: backup
+     group: backup
      state: directory
 
 - name: Create additional directories restore
   file:
      path: /home/backup/restore
+     owner: backup
+     group: backup
      state: directory
 
 - name: Create additional directories influxdb

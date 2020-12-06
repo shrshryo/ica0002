@@ -28,6 +28,7 @@
   roles:
     - agama
     - uwsgi
+    - nginx
     - Nginx_Exporter
   tags:
     - nginx
