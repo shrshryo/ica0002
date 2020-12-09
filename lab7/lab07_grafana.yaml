@@ -1,5 +1,4 @@
 ---
-
 - name: Database server
   hosts: db_servers
   become: yes
@@ -18,12 +17,12 @@
   tags: 
     - bind
 
-# - name: Nginx Exporter
-#   hosts:
-#   become: yes
-#   gather_facts: no
-#   roles:
-#     - Nginx_Exporter
+- name: Nginx Exporter
+  hosts:
+  become: yes
+  gather_facts: no
+  roles:
+    - Nginx_Exporter
 
 - name: Install Grafana
   hosts: grafana

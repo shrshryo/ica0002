@@ -1,0 +1,57 @@
+---
+- name: install bind9
+  become: yes
+  apt:
+    name: bind9
+    state: latest
+
+- name: Configure DNS forwarders, access rules and master zone
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+  notify: restart dns
+
+- name: Bind zone config
+  template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify:
+    - restart dns
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Bind slave zone config
+  template:
+    src: named.conf.local.slave.j2
+    dest: /etc/bind/named.conf.local
+  notify:
+    - restart dns
+  when: inventory_hostname in groups['dns_slaves']
+  
+- name: Configure master zone
+  template:
+    src: db.jetstreamer.j2
+    dest: /var/lib/bind/db.{{domain}}
+  notify: 
+    - Rndc reload
+  when: inventory_hostname in groups['dns_masters']
+
+- name: Ensure that bind9 is started and enabled
+  become: yes
+  service:
+    name: bind9
+    enabled: yes
+    state: started
+
+- name: Execute handlers
+  meta: flush_handlers
+
+- name: Add A record
+  nsupdate:
+    key_name: "dns_update"
+    key_secret: # Change it to "{{ ns_update_secret }}"
+    key_algorithm: "hmac-sha256"
+    server: "{{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }}"
+    zone: "{{ domain }}"
+    record: A
+    value:
+  when: inventory_hostname == groups['dns_masters']

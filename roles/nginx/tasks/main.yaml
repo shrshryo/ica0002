@@ -3,10 +3,10 @@
   apt: 
     name: nginx
     
-- name: Serve index.html
-  copy:
-    src: ../files
-    dest: /var/www/html
+# - name: Serve index.html
+#   copy:
+#     src: ../files
+#     dest: /var/www/html
   
 - name: Copy Nginx configuration
   copy:
@@ -18,3 +18,4 @@
   service:
     name: nginx
     state: started
+    enabled: yes

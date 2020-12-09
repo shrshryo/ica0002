@@ -1,0 +1,6 @@
+zone "{{ domain }}" IN {
+    type master;
+	file "/var/lib/bind/db.{{ domain }}";
+	allow-keytransfer { key dns_transfer; };
+    allow-keytransfer { key dns_update; };
+};

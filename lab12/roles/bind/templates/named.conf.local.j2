@@ -1,0 +1,4 @@
+zone "{{ domain }}" IN {
+    type master;
+	file "/var/lib/bind/db.{{ domain }}";
+};

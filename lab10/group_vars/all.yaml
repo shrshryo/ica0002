@@ -26,6 +26,8 @@ mysql_password_backup: !vault |
           6565666264626131610a373466623630343438666664666136316335633664316163303838656336
           6235
 
+backup: 192.168.42.31         
+
 domain: jetstreamer.ryo
 startup_name: jetstreamer
 
@@ -62,3 +64,12 @@ prometheus_jobs:
     targets:
       - "{{ groups['web_servers'][0] }}"
     port: 9113
+
+nginx_container_per_vm: 1
+
+subnets:
+  - 192.168.42.0/24;
+  - 127.0.0.0/8;
+
+dns_forwarders:
+  - 8.8.8.8

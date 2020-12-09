@@ -1,0 +1,36 @@
+---
+  - name: install uwsgi
+    become: yes
+    apt:
+      name: uwsgi
+      state: latest
+
+  - name: install uwsgi-plugin-python3
+    become: yes
+    apt:
+      name: uwsgi-plugin-python3
+      state: latest
+
+  - name: Create a directory
+    file:
+      path: /etc/uwsgi/apps-enabled
+      state: directory
+
+  - name: add uwsgi config file
+    copy:
+      src: agama.ini
+      dest: /etc/uwsgi/apps-enabled/agama.ini
+    notify: restart uwsgi
+
+  - name: ensure that uwsgi is enabled
+    become: yes
+    service:
+      name: uwsgi
+      enabled: yes
+
+  - name: ensure that uwsgi is started
+    become: yes
+    service:
+      name: uwsgi
+      state: started
+      enabled: yes   

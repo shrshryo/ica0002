@@ -1,0 +1,33 @@
+key "dns_transfer" {
+	algorithm hmac-sha256;
+	secret "6MzA8YYd0KCxTS9Iut1mQ2Fp7iGN+9UTcbKLE1lEfJM="; # Change it to "{{ ns_transfer_secret }}"
+};
+
+key "dns_update" {
+	algorithm hmac-sha256;
+	secret "pejfi8eEf8idhtOzEyks/M1CdSEkrKd7UZ6k7bNPNQk="; # Change it to "{{ ns_update_secret }}"
+};
+
+acl subnets {
+    {% for s in subnets %}
+	  {{ s }}
+	{% endfor %}
+};
+
+options {
+	    directory "/var/cache/bind";
+	    forwarders {
+      {% for f in dns_forwarders %}
+	        {{ f }};
+      {% endfor %}
+	    };
+	    dnssec-validation no;
+	    auth-nxdomain no;    # conform to RFC1035
+	    allow-query {
+	        subnets;
+	    };
+};
+
+statistics-channels {
+  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+};

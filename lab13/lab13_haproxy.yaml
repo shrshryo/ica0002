@@ -1,0 +1,41 @@
+---
+- name: DNS
+  hosts: dns_server
+  become: yes
+  gather_facts: yes
+  roles:
+    - bind
+    - Bind9_Exporter
+
+- name: Prometheus
+  hosts: prometheus
+  become: yes
+  gather_facts: no
+  roles:
+    - prometheus
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - reverse
+    - resolv
+
+- name: HAProxy
+  hosts: haproxy
+  become: yes
+  gather_facts: no
+  roles:
+    - haproxy
+  tags:
+    - ha
+
+- name: keepalived
+  hosts: haproxy
+  become: yes
+  gather_facts: no
+  roles:
+    - keepalived
+  tags:
+    - keepalived

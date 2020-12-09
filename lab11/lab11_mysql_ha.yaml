@@ -7,7 +7,7 @@
 - name: DNS
   hosts: dns_server
   become: yes
-  gather_facts: no
+  gather_facts: yes
   roles:
     - bind
     - Bind9_Exporter
@@ -17,7 +17,7 @@
 - name: Resolver
   hosts: all
   become: yes
-  gather_facts: no
+  gather_facts: yes
   roles:
     - resolv
 

@@ -10,8 +10,15 @@ shrshryo-1
 [db_servers]
 shrshryo-2
 
-[dns_server]
+[dns_masters]
 shrshryo-2
+
+[dns_slaves]
+shrshryo-1
+
+[dns_server:children]
+dns_masters
+dns_slaves
 
 [prometheus]
 shrshryo-1

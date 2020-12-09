@@ -14,4 +14,4 @@ dns_record:
     ip: 192.168.42.165
   - name: backup
     type: A
-    ip: 192.168.42.39
+    ip: 192.168.42.31

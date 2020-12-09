@@ -42,11 +42,15 @@
 - name: Create additional directories backup
   file:
      path: /home/backup/backup
+     owner: backup
+     group: backup
      state: directory
 
 - name: Create additional directories restore
   file:
      path: /home/backup/restore
+     owner: backup
+     group: backup
      state: directory
 
 - name: Create additional directories influxdb

@@ -1,0 +1,9 @@
+zone "{{ domain }}" IN {
+    type slave;
+	file "/var/lib/bind/db.{{ domain }}";
+	masters {
+		{% for vm in groups['dns_masters'] %}
+			{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+		{% endfor %}
+	};
+};

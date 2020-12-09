@@ -1,0 +1,30 @@
+---
+ - name: install bind9
+   become: yes
+   apt:
+     name: bind9
+     state: latest
+
+ - name: Configure DNS forwarders, access rules and master zone
+   template:
+     src: named.conf.options.j2
+     dest: /etc/bind/named.conf.options
+   notify: restart dns
+
+ - name: Create a directory
+   file:
+     path: /etc/bind/db.{{ startup_name }}
+     state: directory
+  
+ - name: Configure master zone
+   template:
+     src: db.jetstreamer.j2
+     dest: /etc/bind/db.{{ startup_name }}/db.{{ startup_name }}.zone
+   notify: restart dns
+
+ - name: Ensure that bind9 is started and enabled
+   become: yes
+   service:
+     name: bind9
+     enabled: yes
+     state: started

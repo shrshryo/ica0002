@@ -1,10 +1,15 @@
 server {
 	listen 80 default_server;
-    root /var/www/html;
-    {% if inventory_hostname in groups['web_servers'] %}
+    listen [::]:80 default_server;
+
+	listen 8080 default_server;
+    listen [::]:8080 default_server;
+
+    server_name _;
+    
+    {% if inventory_hostname in groups['app_servers'] %}
     location / {
-		uwsgi_pass 127.0.0.1:5000;
-		include uwsgi_params;
+		proxy_pass http://127.0.0.1:{{ agama_port }};
 	}
     {% endif %}
     location /metrics {
@@ -17,7 +22,7 @@ server {
     {% endif %}
     {% if inventory_hostname in groups['grafana'] %}
     location /grafana {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:{{ grafana_port }};
     }
     {% endif %}
     {% if inventory_hostname in groups['db_servers'] %}
@@ -33,6 +38,11 @@ server {
     {% if inventory_hostname in groups['dns_server'] %}
     location /bind-metrics {
         proxy_pass http://127.0.0.1:9119/metrics;
+    }
+    {% endif %}
+    {% if inventory_hostname in groups['web_servers'] %}
+    location /stub_status {
+        stub_status;
     }
     {% endif %}
 }

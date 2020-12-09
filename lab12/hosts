@@ -11,8 +11,16 @@ shrshryo-1
 shrshryo-2 mysql_server_id=80
 shrshryo-1 mysql_server_id=24
 
-[dns_server]
+[dns_masters]
 shrshryo-2
+
+[dns_slaves]
+shrshryo-1
+
+[dns_server:children]
+dns_masters
+dns_slaves
+
 
 [prometheus]
 shrshryo-1
