@@ -1,0 +1,13 @@
+---
+- name: Collection information
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - setup:
+
+- name: DNS
+  hosts: dns_server
+  become: yes
+  gather_facts: yes
+  roles:
+    - bind
