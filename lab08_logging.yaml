@@ -1,0 +1,22 @@
+- name: InfluxDB
+  hosts: influxdb
+  become: yes
+  gather_facts: no
+  roles:
+    - influxdb
+
+- name: Rsyslog
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - rsyslog
+
+- name: pinger
+  hosts: pinger
+  become: yes
+  gather_facts: no
+  roles:
+    - pinger
+  tags:
+    - pinger

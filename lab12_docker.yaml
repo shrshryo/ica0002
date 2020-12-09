@@ -1,0 +1,21 @@
+---
+- name: Docker
+  become: yes
+  gather_facts: yes
+  hosts: all
+  roles:
+    - docker
+
+- name: Grafana Docker
+  hosts: grafana
+  become: yes
+  roles:
+    - grafana_docker
+    - reverse
+
+- name: Agama Docker
+  hosts: app_servers
+  become: yes
+  roles:
+    - agama_docker
+    - reverse

@@ -53,6 +53,18 @@
      group: backup
      state: directory
 
+- name: Create additional directories Grafana etc
+  file:
+    path: /home/backup/backup/grafana-etc/
+    state: directory 
+  when: inventory_hostname == "shrshryo-1"
+
+- name: Create additional directories Grafana
+  file:
+    path: /home/backup/backup/grafana/
+    state: directory 
+  when: inventory_hostname == "shrshryo-1"
+
 - name: Create additional directories influxdb
   file:
      path: /home/backup/backup/influxdb
