@@ -52,7 +52,7 @@ prometheus_jobs:
     port: 9100
   - name: bind
     targets:
-      - "{{ groups['dns_server'][0] }}"
+      - "{{ groups['all'] }}"
     port: 9119
   - name: mysql
     targets:
@@ -62,15 +62,32 @@ prometheus_jobs:
     targets:
       - "{{ groups['web_servers'][0] }}"
     port: 9113
+  - name: haproxy
+    targets: "{{ groups['all'] }}"
+    port: 9101
+  - name: keepalived
+    targets: "{{ groups['all'] }}"
+    port: 9165
 
 grafana_port: 3001
 agama_port: 8001
 
 nginx_container_per_vm: 1
 
+dns_forwarders:
+  - 8.8.8.8
+
 subnets:
   - 192.168.42.0/24;
   - 127.0.0.0/8;
 
-dns_forwarders:
-  - 8.8.8.8
+dns_record:
+  - name: shrshryo-1
+    type: A
+    ip: 192.168.42.116
+  - name: shrshryo-2
+    type: A
+    ip: 192.168.42.165
+  - name: backup
+    type: A
+    ip: 192.168.42.31
