@@ -1,0 +1,80 @@
+---
+- name: Collection information
+  hosts: all
+  tasks:
+    - setup:
+
+# - name: DNS
+#   hosts: dns_server
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - bind
+#     - Bind9_Exporter
+#   tags:
+#     - bind
+
+# - name: Resolver
+#   hosts: all
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - resolv
+
+# - name: Agama app
+#   hosts: web_servers
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - agama
+#     - uwsgi
+#     - Nginx_Exporter
+#   tags:
+#     - nginx
+
+# - name: Database server
+#   hosts: db_servers
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - mysql
+#     - MySQL_Exporter
+
+# - name: Prometheus
+#   hosts: prometheus
+#   become: yes
+#   gather_facts: yes
+#   roles:
+#     - prometheus
+
+# - name: Grafana
+#   hosts: grafana
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - Grafana
+#   tags:
+#     - grafana
+
+# - name: Node Exporter
+#   hosts: all
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - node_exporter
+
+# - name: Reverse proxy
+#   hosts: all
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - reverse
+
+- name: Creation of backup user
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - backup
+  tags:
+    - backup
