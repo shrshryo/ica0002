@@ -10,7 +10,7 @@
 #   gather_facts: yes
 #   roles:
 #     - bind
-#     - Bind9_Exporter
+#     - bind_exporter
 #   tags:
 #     - bind
 
@@ -28,7 +28,7 @@
 #   roles:
 #     - agama
 #     - uwsgi
-#     - Nginx_Exporter
+#     - nginx_exporter
 #   tags:
 #     - nginx
 
@@ -38,7 +38,7 @@
 #   gather_facts: no
 #   roles:
 #     - mysql
-#     - MySQL_Exporter
+#     - mySQL_exporter
 
 # - name: Prometheus
 #   hosts: prometheus
@@ -52,7 +52,7 @@
 #   become: yes
 #   gather_facts: no
 #   roles:
-#     - Grafana
+#     - grafana
 #   tags:
 #     - grafana
 
