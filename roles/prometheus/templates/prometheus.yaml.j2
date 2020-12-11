@@ -1,16 +1,52 @@
-# scrape_configs:
-#    static_configs:
-#      - targets: 
-#      {% for host in groups['all'] %}
-#        - '{{ hostvars[host]['inventory_hostname'] }}.{{ domain }}:9100'
-#      {% endfor %}
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
 
 scrape_configs:
-{% for job in prometheus_jobs %}
-  - job_name: {{ job['name'] }}
+
+  - job_name: prometheus
+    scrape_interval: 5s
+    scrape_timeout: 5s
     static_configs:
-      - targets:
-{% for target in job['targets'] %}
-        - {{ target }}.{{ domain }}:{{ job['port'] }}
-{% endfor %}
-{% endfor %}
+      - targets: ['localhost:9090']
+
+  - job_name: linux
+    static_configs:
+      - targets: 
+        - shrshryo-1.{{ domain }}:9100
+        - shrshryo-2.{{ domain }}:9100
+
+  - job_name: bind
+    static_configs:
+      - targets: 
+        - shrshryo-1.{{ domain }}:9119
+        - shrshryo-2.{{ domain }}:9119
+
+  - job_name: www
+    static_configs:
+      - targets: 
+        - shrshryo-1.{{ domain }}:9104
+        - shrshryo-2.{{ domain }}:9104
+
+  - job_name: nginx
+    static_configs:
+      - targets: 
+        - shrshryo-1.{{ domain }}:9113
+
+  - job_name: mysql
+    static_configs:
+      - targets: 
+        - shrshryo-1.{{ domain }}:9104
+
+  - job_name: haproxy
+    static_configs:
+      - targets: 
+        - shrshryo-1.{{ domain }}:9101
+        - shrshryo-2.{{ domain }}:9101
+
+  - job_name: keepalived
+    static_configs:
+    - targets: 
+        - shrshryo-1.{{ domain }}:9165
+        - shrshryo-2.{{ domain }}:9165
+

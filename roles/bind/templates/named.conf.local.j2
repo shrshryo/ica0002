@@ -1,6 +1,6 @@
-zone "{{ domain }}" IN {
+zone "{{ domain }}" {
     type master;
-	file "/var/lib/bind/db.{{ domain }}";
-	allow-keytransfer { key dns_transfer; };
-    allow-keytransfer { key dns_update; };
+	file "/var/lib/bind/db.{{ startup_name }}";
+    allow-transfer { key dns_transfer; };
+    allow-update { key dns_update; };
 };

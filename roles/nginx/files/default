@@ -5,7 +5,7 @@ server {
  
 
     location / {
-        uwsgi_pass localhost:5000;
+        uwsgi_pass 127.0.0.1:5000;
         include uwsgi_params;
     }
 }

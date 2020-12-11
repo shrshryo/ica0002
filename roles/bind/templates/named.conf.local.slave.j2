@@ -4,12 +4,12 @@ server {{ hostvars[vm]['ansible_default_ipv4']['address'] }} {
 };
 {% endfor %}
 
-zone "{{ domain }}" IN {
+zone "{{ domain }}" {
     type slave;
-	file "/var/lib/bind/db.{{ domain }}";
+	file "/var/lib/bind/db.{{ startup_name }}";
 	masters {
 		{% for vm in groups['dns_masters'] %}
 			{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
 		{% endfor %}
-	}
+	};
 };

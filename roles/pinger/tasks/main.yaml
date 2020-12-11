@@ -7,6 +7,7 @@
 - name: User pinger
   user:
     name: pinger
+    state: present
 
 - name: Creation of pinger config directory
   file:
@@ -33,3 +34,9 @@
   notify:
     - Systemctl daemon-reload
     - Restart pinger
+
+- name: start pinger
+  service:
+    name: pinger
+    state: started
+    enabled: yes

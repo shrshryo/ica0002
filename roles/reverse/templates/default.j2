@@ -7,7 +7,7 @@ server {
 
     server_name _;
     
-    {% if inventory_hostname in groups['web_servers'] %}
+    {% if inventory_hostname in groups['app_servers'] %}
     location / {
 		proxy_pass http://127.0.0.1:{{ agama_port }};
 	}
@@ -30,9 +30,9 @@ server {
         proxy_pass http://127.0.0.1:9104/metrics;
     }
     {% endif %}
-    {% if inventory_hostname in groups['db_servers'] %}
+    {% if inventory_hostname in groups['web_servers'] %}
     location /nginx-metrics {
-        proxy_pass http://127.0.0.1:80/metrics;
+        proxy_pass http://127.0.0.1:9113/metrics;
     }
     {% endif %}
     {% if inventory_hostname in groups['dns_server'] %}
@@ -44,5 +44,23 @@ server {
     location /stub_status {
         stub_status;
     }
+    {% endif %}
+
+    {% if inventory_hostname in groups['haproxy'] %}
+    location /haproxy-metrics {
+        proxy_pass http://127.0.0.1:9101/metrics;
+	}
+    {% endif %}
+    
+    {% if inventory_hostname in groups['haproxy'] %}
+    location /keepalived-metrics {
+        proxy_pass http://127.0.0.1:9165/metrics;
+	}
+    {% endif %}
+    
+    {% if inventory_hostname in groups['haproxy'] %}
+    location /haproxy {
+        proxy_pass http://127.0.0.1:88/haproxy?stats;
+	}
     {% endif %}
 }

@@ -4,6 +4,7 @@
     name:
       - python3-docker
       - docker.io
+    state: latest
 
 - name: Docker service
   service:

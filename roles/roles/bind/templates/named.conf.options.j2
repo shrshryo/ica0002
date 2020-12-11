@@ -1,0 +1,23 @@
+acl subnets {
+    {% for s in subnets %}
+	  {{ s }}
+	{% endfor %}
+};
+
+options {
+	    directory "/var/cache/bind";
+	    forwarders {
+      {% for f in dns_forwarders %}
+	        {{ f }};
+      {% endfor %}
+	    };
+	    dnssec-validation no;
+	    auth-nxdomain no;    # conform to RFC1035
+	    allow-query {
+	        subnets;
+	    };
+};
+
+statistics-channels {
+  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+};

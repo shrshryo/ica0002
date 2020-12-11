@@ -2,6 +2,8 @@
 - name: Ensure nginx is installed and in working state
   apt: 
     name: nginx
+    update_cache: yes
+    state: latest
     
 # - name: Serve index.html
 #   copy:

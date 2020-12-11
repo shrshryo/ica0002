@@ -7,7 +7,7 @@
 - name: Systemctl daemon-reload
   shell: "systemctl daemon-reload"
 
-- name: Restart keepalived-exporter
+- name: Restart keepalived exporter
   service:
     name: keepalived-exporter
     state: restarted

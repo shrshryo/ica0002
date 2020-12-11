@@ -1,4 +1,10 @@
 ---
+- name: add user agama
+  user:
+    name: agama
+    system: yes
+    state: present
+
 - name: Create the directory /opt/agama
   file:
     name: /opt/agama
@@ -11,10 +17,10 @@
     url: https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile
     dest: /opt/agama/Dockerfile
 
-- name: Download Dockerfile
-  template: 
-    src: Dockerfile.j2
-    dest: /opt/agama/Dockerfile
+# - name: Download Dockerfile
+#   template: 
+#     src: Dockerfile.j2
+#     dest: /opt/agama/Dockerfile
     
 - name: Agama Docker image
   docker_image:
@@ -22,6 +28,7 @@
     source: build
     build:
       path: /opt/agama
+      network: host
 
 - name: Setup Agama container
   docker_container:

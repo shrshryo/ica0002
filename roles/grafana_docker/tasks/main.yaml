@@ -18,4 +18,3 @@
       - "{{ grafana_port }}:3000"
     volumes:
       - /opt/docker/grafana:/var/lib/grafana/
-

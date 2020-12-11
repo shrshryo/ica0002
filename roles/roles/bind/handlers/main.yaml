@@ -1,0 +1,8 @@
+---
+- name: restart dns
+  service:
+    name: bind9
+    state: restarted
+
+- name: Rndc reload
+  shell: rndc reload
