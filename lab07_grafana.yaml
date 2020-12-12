@@ -26,9 +26,9 @@
   become: yes
   gather_facts: no
   roles:
-    - agama
-    - uwsgi
-    - Nginx_Exporter
+    # - agama
+    # - uwsgi
+    - nginx_exporter
   tags:
     - nginx
 
@@ -38,7 +38,7 @@
   gather_facts: no
   roles:
     - mysql
-    - MySQL_Exporter
+    - mysql_exporter
 
 - name: Prometheus
   hosts: prometheus
@@ -52,7 +52,7 @@
   become: yes
   gather_facts: no
   roles:
-    - Grafana
+    - grafana
   tags:
     - grafana
 

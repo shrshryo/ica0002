@@ -10,7 +10,6 @@
   gather_facts: yes
   roles:
     - bind
-    - bind_exporter
   tags:
     - bind
 
@@ -21,17 +20,13 @@
   roles:
     - resolv
 
-- name: Agama app
-  hosts: web_servers
-  become: yes
-  gather_facts: no
-  roles:
-    - agama
-    - uwsgi
-    - nginx
-    - Nginx_Exporter
-  tags:
-    - nginx
+# - name: Agama app
+#   hosts: web_servers
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - agama
+#     - uwsgi
 
 - name: Database server
   hosts: db_servers
@@ -39,7 +34,7 @@
   gather_facts: no
   roles:
     - mysql
-    - MySQL_Exporter
+    - mysql_exporter
 
 - name: Prometheus
   hosts: prometheus
@@ -48,14 +43,14 @@
   roles:
     - prometheus
 
-- name: Grafana
-  hosts: grafana
-  become: yes
-  gather_facts: no
-  roles:
-    - Grafana
-  tags:
-    - grafana
+# - name: Grafana
+#   hosts: grafana
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - grafana
+#   tags:
+#     - grafana
 
 - name: Node Exporter
   hosts: all

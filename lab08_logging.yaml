@@ -13,7 +13,7 @@
     - rsyslog
 
 - name: pinger
-  hosts: pinger
+  hosts: influxdb
   become: yes
   gather_facts: no
   roles:

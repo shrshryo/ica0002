@@ -1,13 +1,21 @@
 ---
 - name: Collection information
   hosts: all
+  become: yes
   gather_facts: yes
   tasks:
     - setup:
 
 - name: DNS
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - resolv
+
+- name: DNS
   hosts: dns_server
   become: yes
-  gather_facts: yes
+  gather_facts: no
   roles:
     - bind

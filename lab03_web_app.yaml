@@ -2,7 +2,7 @@
  - name: Web app
    hosts: app_servers
    roles:
-     - agama
-     - uwsgi
-     - nginx
+    #  - agama
+    #  - uwsgi
+     - reverse
    become: yes

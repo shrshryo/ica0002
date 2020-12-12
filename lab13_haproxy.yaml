@@ -5,7 +5,7 @@
   gather_facts: yes
   roles:
     - bind
-    - Bind9_Exporter
+    - bind_exporter
 
 - name: Prometheus
   hosts: prometheus
@@ -17,7 +17,7 @@
 - name: Reverse proxy
   hosts: all
   become: yes
-  gather_facts: no
+  gather_facts: yes
   roles:
     - reverse
     - resolv
@@ -25,7 +25,7 @@
 - name: HAProxy
   hosts: haproxy
   become: yes
-  gather_facts: no
+  gather_facts: yes
   roles:
     - haproxy
   tags:

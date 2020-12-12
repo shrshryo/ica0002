@@ -1,4 +1,18 @@
 ---
+- name: reverse
+  become: yes
+  gather_facts: yes
+  hosts: web_servers
+  roles:
+    - reverse
+
+- name: Bind
+  become: yes
+  gather_facts: yes
+  hosts: dns_server
+  roles:
+    - bind
+
 - name: Docker
   become: yes
   gather_facts: yes
