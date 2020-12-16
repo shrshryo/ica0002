@@ -115,7 +115,3 @@ dns_record:
   - name: backup
     type: A
     ip: 192.168.42.156
-
-a_records:
-  - subdomain: backup
-    ip: 192.168.42.39
