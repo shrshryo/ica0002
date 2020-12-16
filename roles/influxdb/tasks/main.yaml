@@ -21,6 +21,19 @@
   notify:
     - Restart Telegraf
 
+- name: start influxdb
+  service:
+    name: influxdb
+    state: started
+    enabled: yes
+
+- name: start telegraf
+  service:
+    name: telegraf
+    state: started
+    enabled: yes
+
+
 
 # > influx
 # > create database latency 
