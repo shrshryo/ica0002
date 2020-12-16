@@ -47,3 +47,16 @@
 
 - name: Execute handlers
   meta: flush_handlers
+
+# - name: Add A record
+#   nsupdate:
+#     key_name: "dns_update"
+#     key_secret: "{{ ns_update_secret }}" # Change it to "{{ ns_update_secret }}"
+#     key_algorithm: "hmac-sha256"
+#     server: "{{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }}"
+#     zone: "{{ domain }}"
+#     record: "{{ item['subdomain'] }}.{{ domain }}."
+#     type: A
+#     value: "{{ item['ip'] }}"
+#   loop: "{{ a_records }}"  
+#   when: inventory_hostname == groups['dns_masters'][0]

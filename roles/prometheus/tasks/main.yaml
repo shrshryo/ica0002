@@ -10,7 +10,7 @@
   notify: Restart Prometheus
 
 - name: Adjust Prometheus service
-  copy:
+  template:
     src: prometheus
     dest: /etc/default/prometheus
   notify: 

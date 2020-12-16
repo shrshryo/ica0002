@@ -8,13 +8,13 @@ subnets:
 dns_record:
   - name: shrshryo-1
     type: A
-    ip: 192.168.42.43
+    ip: 192.168.42.185
   - name: shrshryo-2
     type: A
-    ip: 192.168.42.55
+    ip: 192.168.42.173
   - name: shrshryo-3
     type: A
-    ip: 192.168.42.183
+    ip: 192.168.42.64
   - name: backup
     type: A
     ip: 192.168.42.156

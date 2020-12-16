@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.55 # Second machine
+mysql_host: 192.168.42.173 # Second machine
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -48,7 +48,7 @@ ns_update_secret: !vault |
 domain: jetstreamer.ryo
 startup_name: jetstreamer
 
-shrshryo-3_port_number: 18180
+shrshryo3PN: 6480
 
 dns_cnames:
   - cname: ns
@@ -65,6 +65,15 @@ dns_cnames:
     type: CNAME
   - cname: grafana
     real: "{{ groups['grafana'][0] }}"
+    type: CNAME
+  - cname: grafana
+    real: "{{ groups['grafana'][0] }}"
+    type: CNAME
+  - cname: haproxy-1
+    real: "{{ groups['haproxy'][0] }}"
+    type: CNAME
+  - cname: haproxy-2
+    real: "{{ groups['haproxy'][1] }}"
     type: CNAME
 
 prometheus_jobs:
@@ -105,13 +114,13 @@ subnets:
 dns_record:
   - name: shrshryo-1
     type: A
-    ip: 192.168.42.43
+    ip: 192.168.42.185
   - name: shrshryo-2
     type: A
-    ip: 192.168.42.55
+    ip: 192.168.42.173
   - name: shrshryo-3
     type: A
-    ip: 192.168.42.183
+    ip: 192.168.42.64
   - name: backup
     type: A
     ip: 192.168.42.156
