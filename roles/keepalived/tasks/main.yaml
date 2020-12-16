@@ -25,6 +25,6 @@
 
 - name: start keepalived-prometheus-exporter
   service:
-    name: keepalived-prometheus-exporter
+    name: keepalived
     state: started
     enabled: yes
