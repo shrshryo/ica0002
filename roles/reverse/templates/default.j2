@@ -13,11 +13,11 @@ server {
 	}
     {% endif %}
     location /metrics {
-		proxy_pass http://localhost:9100/metrics;
+		proxy_pass http://localhost:{{ prometheus_jobs[0].port }}/metrics;
 	}
     {% if inventory_hostname in groups['prometheus'] %}
     location /prometheus {
-        proxy_pass http://localhost:9090;
+        proxy_pass http://localhost:{{ prometheus_port }};
     }
     {% endif %}
     {% if inventory_hostname in groups['grafana'] %}
@@ -27,17 +27,17 @@ server {
     {% endif %}
     {% if inventory_hostname in groups['db_servers'] %}
     location /mysql-metrics {
-        proxy_pass http://localhost:9104/metrics;
+        proxy_pass http://localhost:{{ prometheus_jobs[2].port }}/metrics;
     }
     {% endif %}
     {% if inventory_hostname in groups['web_servers'] %}
     location /nginx-metrics {
-        proxy_pass http://localhost:9113/metrics;
+        proxy_pass http://localhost:{{ prometheus_jobs[3].port }}/metrics;
     }
     {% endif %}
     {% if inventory_hostname in groups['dns_server'] %}
     location /bind-metrics {
-        proxy_pass http://localhost:9119/metrics;
+        proxy_pass http://localhost:{{ prometheus_jobs[1].port }}/metrics;
     }
     {% endif %}
     {% if inventory_hostname in groups['web_servers'] %}
@@ -48,13 +48,13 @@ server {
 
     {% if inventory_hostname in groups['haproxy'] %}
     location /haproxy-metrics {
-        proxy_pass http://localhost:9101/metrics;
+        proxy_pass http://localhost:{{ prometheus_jobs[4].port }}/metrics;
 	}
     {% endif %}
     
     {% if inventory_hostname in groups['haproxy'] %}
     location /keepalived-metrics {
-        proxy_pass http://localhost:9165/metrics;
+        proxy_pass http://localhost:{{ prometheus_jobs[5].port }}/metrics;
 	}
     {% endif %}
     

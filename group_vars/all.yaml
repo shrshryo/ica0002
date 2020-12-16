@@ -99,6 +99,7 @@ prometheus_jobs:
     targets: "{{ groups['all'] }}"
     port: 9165
 
+prometheus_port: 9090
 grafana_port: 3001
 agama_port: 8001
 
