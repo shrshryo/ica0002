@@ -38,7 +38,7 @@
 #   gather_facts: no
 #   roles:
 #     - mysql
-#     - mySQL_exporter
+#     - mysql_exporter
 
 # - name: Prometheus
 #   hosts: prometheus

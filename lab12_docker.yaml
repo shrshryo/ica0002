@@ -2,9 +2,16 @@
 - name: reverse
   become: yes
   gather_facts: yes
-  hosts: web_servers
+  hosts: all
   roles:
     - reverse
+
+# - name: reverse
+#   become: yes
+#   gather_facts: yes
+#   hosts: internal
+#   roles:
+#     - reverse
 
 - name: Bind
   become: yes

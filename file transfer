@@ -1,0 +1,70 @@
+# SSH from backup
+# ssh shrshryo@backup.jetstreamer.ryo
+
+# From backup user
+# dump by backup
+# mysqldump agama > /home/backup/backup/agama.sql
+
+# From backup user
+# cp /var/lib/grafana/grafana.db /home/backup/backup
+# cp /opt/docker/grafana/grafana.db /home/backup/backup
+# cp /var/lib/grafana/grafana.db /home/backup/backup
+# cp -r /var/lib/prometheus /home/backup/backup
+# cp -r /var/lib/influxdb /home/backup/backup
+# cp -r /var/lib/grafana /home/backup/backup
+# cp -r /opt/docker/grafana /home/backup/backup
+
+# SCP from backup
+# scp agama.sql shrshryo@backup.jetstreamer.ryo:agama.sql
+
+# From backup user
+# scp grafana.db shrshryo@backup.jetstreamer.ryo:grafana.db <- Not important
+# scp -r prometheus shrshryo@backup.jetstreamer.ryo:prometheus
+# scp -r grafana shrshryo@backup.jetstreamer.ryo:grafana
+
+# copy to /home/backup/restore from backup
+# rsync -v shrshryo@backup.jetstreamer.ryo:agama.sql /home/backup/restore/agama.sql
+# rsync -vr shrshryo@backup.jetstreamer.ryo:prometheus /home/backup/restore/prometheus
+# rsync -vr shrshryo@backup.jetstreamer.ryo:grafana /home/backup/restore/
+
+# From root user
+# restore by backup
+# sudo -u backup mysql agama < /home/backup/restore/agama.sql -u agama -p
+# sudo -u backup rsync -vr shrshryo@backup.jetstreamer.ryo:prometheus /home/backup/restore/
+# sudo -u rsync -vr shrshryo@backup.jetstreamer.ryo:grafana /home/backup/restore/
+
+# From root user
+# service prometheus stop
+# cp -a /home/backup/restore/prometheus/* /var/lib/prometheus/
+# service prometheus start
+
+# docker stop grafana
+# cp -a /home/backup/restore/grafana/* /opt/docker/grafana/
+# cp -a /home/backup/restore/grafana/* /var/lib/grafana/
+# chown -R 472:472 /opt/docker/grafana/
+# docker start grafana
+# ansible-playbook lab12_docker.yaml
+
+rsync -vr /home/backup/backup shrshryo@backup.jetstreamer.ryo:agama.sql
+
+
+
+
+# cp -a /home/backup/restore/prometheus/prometheus/* /var/lib/prometheus
+# cp -a /home/backup/restore/grafana/* /opt/docker/grafana/
+
+# Duplicity
+# duplicity --no-encryption full rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo
+# duplicity --no-encryption incremental agama.sql rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo
+# duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/ /home/backup/restore/
+
+
+backup  duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+
+cp -r /opt/docker/grafana/ /home/backup/backup
+scp -r grafana shrshryo@backup.jetstreamer.ryo:grafana
+
+duplicity --no-encryption full agama.sql rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo
+
+
+duplicity --no-encryption restore agama.sql rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo /home/backup/restore/

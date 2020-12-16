@@ -3,5 +3,5 @@
   hosts: web_servers
   roles:
     - users
-    - nginx
+    - reverse
   become: yes

@@ -20,3 +20,8 @@
     dest: /etc/telegraf/telegraf.conf
   notify:
     - Restart Telegraf
+
+
+# > influx
+# > create database latency 
+# > use latency

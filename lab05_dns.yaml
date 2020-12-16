@@ -33,9 +33,9 @@
      - resolv
    become: yes
 
-- name: Reverse proxy
-  hosts: all
-  become: yes
-  gather_facts: no
-  roles:
-    - reverse
+ - name: Reverse proxy
+   hosts: all
+   become: yes
+   gather_facts: no
+   roles:
+     - reverse

@@ -17,7 +17,7 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
     priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
   #no_log: True
-  notify: Restart MySQL Exporter
+  #notify: Restart MySQL Exporter
 
 - name: Enabled
   service:

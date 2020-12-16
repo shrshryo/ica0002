@@ -15,14 +15,16 @@ scrape_configs:
       - targets: 
         - shrshryo-1.{{ domain }}:9100
         - shrshryo-2.{{ domain }}:9100
+        - shrshryo-3.{{ domain }}:9100
 
   - job_name: bind
     static_configs:
       - targets: 
         - shrshryo-1.{{ domain }}:9119
         - shrshryo-2.{{ domain }}:9119
+        - shrshryo-3.{{ domain }}:9119
 
-  - job_name: www
+  - job_name: mysql
     static_configs:
       - targets: 
         - shrshryo-1.{{ domain }}:9104
@@ -33,10 +35,10 @@ scrape_configs:
       - targets: 
         - shrshryo-1.{{ domain }}:9113
 
-  - job_name: mysql
-    static_configs:
-      - targets: 
-        - shrshryo-1.{{ domain }}:9104
+  # - job_name: mysql
+  #  static_configs:
+  #    - targets: 
+  #      - shrshryo-1.{{ domain }}:9104
 
   - job_name: haproxy
     static_configs:

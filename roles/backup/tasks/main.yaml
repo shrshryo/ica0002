@@ -27,17 +27,47 @@
     mode: '0400'
   when: inventory_hostname == "shrshryo-2"
 
-- name: Add backup to grafana and prometheus group
+- name: Add backup to grafana group
   user:
     name: backup
-    groups: grafana, prometheus
+    groups: grafana
+  when: inventory_hostname == "shrshryo-3"
+
+- name: Add backup to prometheus group
+  user:
+    name: backup
+    groups: prometheus
+  when: inventory_hostname == "shrshryo-3"
+
+# - name: Add backup to grafana and prometheus group
+#   user:
+#     name: backup
+#     groups: prometheus
+#   when: inventory_hostname == "shrshryo-1"
+
+- name: Add backup to mysql group
+  user:
+    name: backup
+    groups: mysql
   when: inventory_hostname == "shrshryo-1"
 
-- name: Add backup to mysql and influxdb group
+- name: Add backup to mysql group
   user:
     name: backup
-    groups: mysql, influxdb
+    groups: mysql
   when: inventory_hostname == "shrshryo-2"
+
+# - name: Add backup to prometheus group
+#   user:
+#     name: backup
+#     groups: root
+#   when: inventory_hostname == "shrshryo-3"
+
+# - name: Add backup to influxdb group
+#   user:
+#     name: backup
+#     groups: prometheus
+#   when: inventory_hostname == "shrshryo-3"
 
 - name: Create additional directories backup
   file:
@@ -62,6 +92,8 @@
 - name: Create additional directories Grafana
   file:
     path: /home/backup/backup/grafana/
+    owner: backup
+    group: backup
     state: directory 
   when: inventory_hostname == "shrshryo-1"
 
@@ -88,3 +120,9 @@
     src: crontab-backup-shrshryo-2.j2
     dest: /etc/cron.d/backup
   when: inventory_hostname == "shrshryo-2"
+
+- name: Crontab for shrshryo-3
+  template:
+    src: crontab-backup-shrshryo-3.j2
+    dest: /etc/cron.d/backup
+  when: inventory_hostname == "shrshryo-3"

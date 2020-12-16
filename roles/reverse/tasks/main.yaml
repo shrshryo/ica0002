@@ -2,6 +2,7 @@
 - name: Install Nginx
   apt: 
     name: nginx
+    update_cache: yes
 
 - name: Nginx config
   template:
@@ -9,6 +10,12 @@
     dest: /etc/nginx/sites-enabled/default
   notify: 
     - Restart Nginx
+
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
 
 # - name: Nginx config
 #   template:

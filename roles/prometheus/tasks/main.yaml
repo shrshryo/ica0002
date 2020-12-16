@@ -13,3 +13,21 @@
   copy:
     src: prometheus
     dest: /etc/default/prometheus
+  notify: 
+    - Systemctl daemon-reload
+    - Restart Prometheus
+
+# - name: Configure Prometheus' web path
+#   template:
+#     src: prometheus.service.j2
+#     dest: /etc/systemd/system/prometheus.service
+#   notify: 
+#     - Systemctl daemon-reload
+#     - Restart Prometheus 
+#     - Restart Nginx
+
+- name: Enabled
+  service:
+    name: prometheus
+    state: started
+    enabled: yes

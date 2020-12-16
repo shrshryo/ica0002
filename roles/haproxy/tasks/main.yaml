@@ -23,6 +23,7 @@
     ports:
       - "9101:9101"
     command: --haproxy.scrape-uri="http://shrshryo-1:88/haproxy?stats;csv"
+    restart_policy: always
   when: inventory_hostname == "shrshryo-1"
 
 - name: HAProxy exporter setup shrshryo-2
@@ -32,4 +33,5 @@
     ports:
       - "9101:9101"
     command: --haproxy.scrape-uri="http://shrshryo-2:88/haproxy?stats;csv"
+    restart_policy: always
   when: inventory_hostname == "shrshryo-2"

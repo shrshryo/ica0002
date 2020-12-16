@@ -1,11 +1,10 @@
-0 2  29 * * backup rsync -a /var/lib/grafana/grafana.db /home/backup/backup/
-
-0 2  29 * * backup rsync -a /var/lib/prometheus/ /home/backup/backup/
+0 22 * * * backup mysqldump agama > /home/backup/backup/agama.sql
 
 0 0 * * 0 backup duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
 0 0 * * 1-6 backup duplicity --no-encryption incrimental /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
-0 0 28 * * backup duplicity remove-older-than 1M rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+0 0 28 * * backup duplicity remove-older-than 30D rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 
+# duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/ /home/backup/restore/
 # duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/ /home/backup/restore/

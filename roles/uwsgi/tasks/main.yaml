@@ -4,6 +4,7 @@
   apt:
     name: uwsgi
     state: latest
+    update_cache: yes
 
 - name: install uwsgi
   become: yes

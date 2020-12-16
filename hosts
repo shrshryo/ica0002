@@ -1,4 +1,46 @@
-my_vm ansible_host=193.40.156.86 ansible_port=11622 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-1 ansible_host=193.40.156.86 ansible_port=4322 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-2 ansible_host=193.40.156.86 ansible_port=5522 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-3 ansible_host=193.40.156.86 ansible_port=18322 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
 
 [web_servers]
-my_vm
+shrshryo-1
+shrshryo-2
+
+[app_servers]
+shrshryo-1
+shrshryo-2
+
+[db_servers]
+shrshryo-2 mysql_server_id=80
+shrshryo-1 mysql_server_id=24
+
+[dns_masters]
+shrshryo-3
+
+[dns_slaves]
+shrshryo-1
+shrshryo-2
+
+[dns_server:children]
+dns_masters
+dns_slaves
+
+[prometheus]
+shrshryo-3
+
+[grafana]
+shrshryo-3
+
+[influxdb]
+shrshryo-3
+
+[haproxy]
+shrshryo-1
+shrshryo-2
+
+[application]
+shrshryo-1
+shrshryo-2
+
+[internal]
+shrshryo-3

@@ -1,0 +1,275 @@
+---
+- name: Setup
+  hosts: all
+  become: yes
+  roles:
+    - init
+
+- name: Setup for Application VMs
+  hosts: application
+  become: yes
+  roles:
+    - users
+    - reverse
+    - mysql
+    - reverse
+
+- name: DNS servers
+  hosts: dns_server
+  become: yes
+  roles:
+    - bind
+
+- name: Resolver
+  hosts: all
+  become: yes
+  roles:
+    - resolv
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  roles:
+    - reverse
+
+- name: Node Exporter
+  hosts: all
+  become: yes
+  roles:
+    - node_exporter
+
+- name: Prometheus
+  hosts: internal
+  become: yes
+  roles:
+    - prometheus
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  roles:
+    - reverse
+
+- name: DNS
+  hosts: dns_server
+  become: yes
+  gather_facts: no
+  roles:
+    - bind
+    - bind_exporter
+
+- name: Resolver
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - resolv
+
+- name: Nginx Exporter
+  hosts: application
+  become: yes
+  gather_facts: no
+  roles:
+    - nginx_exporter
+
+- name: Database server
+  hosts: db_servers
+  become: yes
+  gather_facts: no
+  roles:
+    - mysql
+    - mysql_exporter
+
+- name: Prometheus
+  hosts: internal
+  become: yes
+  gather_facts: yes
+  roles:
+    - prometheus
+
+- name: Grafana
+  hosts: grafana
+  become: yes
+  gather_facts: no
+  roles:
+    - grafana
+    
+- name: Node Exporter
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - node_exporter
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - reverse
+
+- name: InfluxDB
+  hosts: influxdb
+  become: yes
+  gather_facts: no
+  roles:
+    - influxdb
+
+- name: Rsyslog
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - rsyslog
+
+- name: pinger
+  hosts: influxdb
+  become: yes
+  gather_facts: no
+  roles:
+    - pinger
+
+- name: Creation of backup user
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - backup
+
+- name: DNS
+  hosts: dns_server
+  become: yes
+  gather_facts: yes
+  roles:
+    - bind
+  tags:
+    - bind
+
+- name: Resolver
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - resolv
+
+- name: Database server
+  hosts: db_servers
+  become: yes
+  gather_facts: no
+  roles:
+    - mysql
+    - mysql_exporter
+
+- name: Prometheus
+  hosts: internal
+  become: yes
+  gather_facts: yes
+  roles:
+    - prometheus
+
+- name: Grafana
+  hosts: grafana
+  become: yes
+  gather_facts: no
+  roles:
+    - grafana
+
+- name: Node Exporter
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - node_exporter
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - reverse
+
+- name: reverse
+  become: yes
+  gather_facts: yes
+  hosts: all
+  roles:
+    - reverse
+
+- name: Bind
+  become: yes
+  gather_facts: yes
+  hosts: dns_server
+  roles:
+    - bind
+
+- name: Docker
+  become: yes
+  gather_facts: yes
+  hosts: all
+  roles:
+    - docker
+
+- name: Grafana Docker
+  hosts: grafana
+  become: yes
+  roles:
+    - grafana_docker
+    - reverse
+
+- name: Agama Docker
+  hosts: app_servers
+  become: yes
+  roles:
+    - agama_docker
+    - reverse
+
+- name: DNS
+  hosts: dns_server
+  become: yes
+  gather_facts: yes
+  roles:
+    - bind
+    - bind_exporter
+
+- name: Prometheus
+  hosts: prometheus
+  become: yes
+  gather_facts: no
+  roles:
+    - prometheus
+
+- name: Reverse proxy
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - reverse
+    - resolv
+
+- name: HAProxy
+  hosts: haproxy
+  become: yes
+  gather_facts: yes
+  roles:
+    - haproxy
+
+- name: keepalived
+  hosts: haproxy
+  become: yes
+  gather_facts: no
+  roles:
+    - keepalived
+
+- name: DNS
+  hosts: all
+  become: yes
+  gather_facts: no
+  roles:
+    - resolv
+
+- name: DNS
+  hosts: dns_server
+  become: yes
+  gather_facts: no
+  roles:
+    - bind

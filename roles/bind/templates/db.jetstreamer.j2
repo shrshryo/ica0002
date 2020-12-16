@@ -9,6 +9,7 @@ $TTL	604800
 	IN	NS	shrshryo-2.{{ domain }}.
 	IN	A	{{ dns_record[1].ip }}
 	IN	A	{{ dns_record[2].ip }}
+	IN	A	{{ dns_record[3].ip }}
 {% for r in dns_record %}
 {{ r.name }}   				 IN  {{ r.type }} {{ r.ip }}
 {% endfor %}

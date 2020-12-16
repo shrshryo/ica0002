@@ -1,10 +1,14 @@
+## Ansible Repository
+
+In order to restore Ansible repository, can be found from github [https://github.com/shrshryo/ica0002.git](https://github.com/shrshryo/ica0002.git).
+
 
 ## Web servers
 
-In order to restore web servers, please run the following command from your management host.
+In order to restore web servers, please run the following commands from your management host.
 
 ```
-ansible-playbook lab02_web_server.yaml
+ansible-playbook lab04_web_app.yaml
 ansible-playbook lab13_haproxy.yaml
 ```
 
@@ -37,17 +41,17 @@ ansible-playbook lab02_web_server.yaml
 In order to restore docker, please run the following command from your management host.
 
 ```
-ansible-playbook lab12_dns.yaml
+ansible-playbook lab12_docker.yaml
 ```
 
-In case of any issues either Agama or Grafana cannot create an image, please follow the following steps on the managed host:
+In case of any issues either Agama or Grafana cannot create an image, please follow the following steps on the managed host either `shrshryo-1`, `shrshryo-2` or `shrshryo-3`:
 
 ```
 docker rm <agama or grafana>
 docker rmi <agama or grafana/grafana>
 ```
 
-Then re-run the Ansible playbook again.
+Then re-run the Ansible playbook mentioned above again.
 
 <br>
 
@@ -57,16 +61,17 @@ Then re-run the Ansible playbook again.
 In order to restore MySQL, please run the following command from your management host.
 
 ```
-ansible-playbook lab04_web_app.yaml
-ansible-playbook lab07_grafana.yaml
-ansible-playbook lab09_backups.yaml
+ansible-playbook lab11_mysql_ha.yaml
 ```
  
+ <br>
+ 
 ### Agama MySQL database
-In order to restore data in Agama MySQL database, please run the following command from your management host.
+In order to restore data in Agama MySQL database, please run the following command from the host machine `shrshryo-2`.
 
 ```
-rsync -v shrshryo@backup.jetstreamer.ryo:agama.sql /home/backup/restore/agama.sql
+duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo /home/backup/restore/agama.sql
+
 mysql agama < /home/backuprestore/agama.sql -u agama -p
 ```
 
@@ -82,6 +87,16 @@ ansible-playbook lab05_dns.yaml
 
 <br>
 
+## Backup
+
+Restoring user `Backup`, please run the following command from your management host.
+
+```
+ansible-playbook lab10_backups.yaml
+```
+
+<br>
+
 ## Monitoring servers
 
 ### Prometheus
@@ -92,24 +107,6 @@ In order to restore Prometheus, please run the following command from your manag
 ansible-playbook lab06_prometheus.yaml
 ```
 
-In order to restore the data back, please follow the following steps.
-
-As user `root`
-
-```
-service prometheus stop
-rsync -vr shrshryo@backup.jetstreamer.ryo:prometheus /home/backup/restore/prometheus
-cp -a /home/backup/restore/prometheus/prometheus/* /var/lib/prometheus
-service prometheus start
-```
-
-If the service cannot be started, execute
-
-```
-chown -R prometheus /var/lib/prometheus
-service prometheus restart
-```
-
 <br>
 
 ### Grafana
@@ -117,7 +114,32 @@ service prometheus restart
 In order to restore Grafana, please run the following command from your management host.
 
 ```
-ansible-playbook lab07_grafana.yaml
+ansible-playbook lab12_docker.yaml
+```
+
+To restore the tables in Grafana, please run the following command from machine `shrshryo-3` as `backup` user.
+
+```
+duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/ /home/backup/restore/
+```
+
+Then as `root` user:
+
+```
+
+cp -a /home/backup/restore/grafana/grafana/* /opt/docker/grafana/
+
+cp -a /home/backup/restore/grafana/grafana/* /var/lib/grafana/
+
+chown -R 472:472 /opt/docker/grafana/
+
+docker start grafana
+```
+
+Then from managed host, run the following code.
+
+```
+ansible-playbook lab12_docker.yaml
 ```
 
 <br>
