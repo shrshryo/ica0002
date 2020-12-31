@@ -27,17 +27,24 @@
     mode: '0400'
   when: inventory_hostname == "shrshryo-2"
 
+# - name: Add backup to grafana docker group
+#   group:
+#     name: grafana
+#     gid: 472
+#     state: present
+#   when: inventory_hostname == groups['grafana'][0]
+
 - name: Add backup to grafana group
   user:
     name: backup
     groups: grafana
-  when: inventory_hostname == "shrshryo-3"
+  when: inventory_hostname == groups['grafana'][0]
 
-- name: Add backup to prometheus group
-  user:
-    name: backup
-    groups: prometheus
-  when: inventory_hostname == "shrshryo-3"
+# - name: Add backup to prometheus group
+#   user:
+#     name: backup
+#     groups: prometheus
+#   when: inventory_hostname == "shrshryo-3"
 
 # - name: Add backup to grafana and prometheus group
 #   user:

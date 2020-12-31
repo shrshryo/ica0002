@@ -4,3 +4,9 @@
     name: 
       - prometheus-node-exporter
     update_cache: yes
+
+- name: Started
+  service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes

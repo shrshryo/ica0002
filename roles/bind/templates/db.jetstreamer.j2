@@ -6,7 +6,7 @@ $TTL	604800
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
 ;
-	IN	NS	shrshryo-2.{{ domain }}.
+	IN	NS	{{ dns_record[1].name }}.{{ domain }}.
 	IN	A	{{ dns_record[1].ip }}
 	IN	A	{{ dns_record[2].ip }}
 	IN	A	{{ dns_record[3].ip }}

@@ -1,5 +1,9 @@
 ---
+- name: Systemctl daemon-reload
+  shell: "systemctl daemon-reload"
+
 - name: Restart MySQL Exporter
   service:
     name: prometheus-mysqld-exporter
     state: restarted
+    enabled: yes

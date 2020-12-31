@@ -8,7 +8,9 @@
   template:
     src: my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
-  notify: Restart MySQL Exporter
+  notify:
+    - Systemctl daemon-reload
+    - Restart MySQL Exporter
 
 - name: MySQL Exporter user
   mysql_user:
@@ -18,6 +20,13 @@
     priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
   #no_log: True
   #notify: Restart MySQL Exporter
+
+- name: Execute handlers
+  meta: flush_handlers
+
+# - name: Wait for a few seconds
+#   wait_for:
+#     timeout: 20
 
 - name: Enabled
   service:

@@ -6,7 +6,7 @@ Documentation=https://prometheus.io/docs/introduction/overview/
 Restart=always
 User=prometheus
 EnvironmentFile=/etc/default/prometheus
-ExecStart=/usr/bin/prometheus $ARGS --web.external-url=http://193.40.156.86:18180/prometheus
+ExecStart=/usr/bin/prometheus $ARGS --web.external-url=http://{{ ansible_host }}:{{ shrshryo3PN }}/prometheus
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=20s
 SendSIGKILL=no

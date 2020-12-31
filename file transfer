@@ -38,12 +38,11 @@
 # cp -a /home/backup/restore/prometheus/* /var/lib/prometheus/
 # service prometheus start
 
+# ansible-playbook lab12_docker.yaml
 # docker stop grafana
 # cp -a /home/backup/restore/grafana/* /opt/docker/grafana/
-# cp -a /home/backup/restore/grafana/* /var/lib/grafana/
 # chown -R 472:472 /opt/docker/grafana/
 # docker start grafana
-# ansible-playbook lab12_docker.yaml
 
 rsync -vr /home/backup/backup shrshryo@backup.jetstreamer.ryo:agama.sql
 

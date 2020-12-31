@@ -78,7 +78,7 @@
   gather_facts: no
   roles:
     - mysql
-    - mysql_exporter
+    # - mysql_exporter
 
 - name: Prometheus
   hosts: internal
@@ -129,78 +129,12 @@
   roles:
     - pinger
 
-- name: Creation of backup user
-  hosts: all
-  become: yes
-  gather_facts: no
-  roles:
-    - backup
-
-- name: DNS
-  hosts: dns_server
-  become: yes
-  gather_facts: yes
-  roles:
-    - bind
-  tags:
-    - bind
-
-- name: Resolver
-  hosts: all
-  become: yes
-  gather_facts: yes
-  roles:
-    - resolv
-
-- name: Database server
-  hosts: db_servers
-  become: yes
-  gather_facts: no
-  roles:
-    - mysql
-    - mysql_exporter
-
-- name: Prometheus
-  hosts: internal
-  become: yes
-  gather_facts: yes
-  roles:
-    - prometheus
-
-- name: Grafana
-  hosts: grafana
-  become: yes
-  gather_facts: no
-  roles:
-    - grafana
-
-- name: Node Exporter
-  hosts: all
-  become: yes
-  gather_facts: no
-  roles:
-    - node_exporter
-
-- name: Reverse proxy
-  hosts: all
-  become: yes
-  gather_facts: no
-  roles:
-    - reverse
-
-- name: reverse
-  become: yes
-  gather_facts: yes
-  hosts: all
-  roles:
-    - reverse
-
-- name: Bind
-  become: yes
-  gather_facts: yes
-  hosts: dns_server
-  roles:
-    - bind
+# - name: Creation of backup user
+#   hosts: all
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - backup
 
 - name: Docker
   become: yes
@@ -214,37 +148,19 @@
   become: yes
   roles:
     - grafana_docker
-    - reverse
 
 - name: Agama Docker
   hosts: app_servers
   become: yes
   roles:
     - agama_docker
-    - reverse
 
-- name: DNS
-  hosts: dns_server
-  become: yes
-  gather_facts: yes
-  roles:
-    - bind
-    - bind_exporter
-
-- name: Prometheus
-  hosts: prometheus
+- name: Creation of backup user
+  hosts: all
   become: yes
   gather_facts: no
   roles:
-    - prometheus
-
-- name: Reverse proxy
-  hosts: all
-  become: yes
-  gather_facts: yes
-  roles:
-    - reverse
-    - resolv
+    - backup
 
 - name: HAProxy
   hosts: haproxy
@@ -260,16 +176,9 @@
   roles:
     - keepalived
 
-- name: DNS
-  hosts: all
+- name: Database server
+  hosts: db_servers
   become: yes
   gather_facts: no
   roles:
-    - resolv
-
-- name: DNS
-  hosts: dns_server
-  become: yes
-  gather_facts: no
-  roles:
-    - bind
+    - mysql_exporter

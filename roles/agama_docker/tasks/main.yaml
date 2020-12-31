@@ -8,7 +8,8 @@
 - name: Create the directory /opt/agama
   file:
     name: /opt/agama
-    owner: agama
+    owner: root
+    group: root
     state: directory
     recurse: true
 

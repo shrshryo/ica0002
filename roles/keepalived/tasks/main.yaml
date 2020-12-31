@@ -23,8 +23,14 @@
     - Systemctl daemon-reload
     - Restart keepalived exporter
 
-- name: start keepalived-prometheus-exporter
+- name: start keepalived
   service:
     name: keepalived
+    state: started
+    enabled: yes
+
+- name: start keepalived-prometheus-exporter
+  service:
+    name: keepalived-prometheus-exporter
     state: started
     enabled: yes

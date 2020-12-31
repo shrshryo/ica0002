@@ -1,4 +1,6 @@
-0 2 * * * backup rsync -a /var/lib/grafana /home/backup/backup
+0 2 * * * backup rsync -a /opt/docker/grafana /home/backup/backup
+
+# rsync -a /opt/docker/grafana /home/backup/backup
 
 0 0 * * 0 backup duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
 

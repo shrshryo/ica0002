@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.173 # Second machine
+mysql_host: 192.168.42.52 # Second machine
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -115,13 +115,13 @@ subnets:
 dns_record:
   - name: shrshryo-1
     type: A
-    ip: 192.168.42.185
+    ip: 192.168.42.75
   - name: shrshryo-2
     type: A
-    ip: 192.168.42.173
+    ip: 192.168.42.52
   - name: shrshryo-3
     type: A
-    ip: 192.168.42.64
+    ip: 192.168.42.160
   - name: backup
     type: A
     ip: 192.168.42.156

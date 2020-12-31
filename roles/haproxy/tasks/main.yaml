@@ -24,7 +24,7 @@
       - "9101:9101"
     command: --haproxy.scrape-uri="http://shrshryo-1:88/haproxy?stats;csv"
     restart_policy: always
-  when: inventory_hostname == "shrshryo-1"
+  when: inventory_hostname == groups['haproxy'][0] #"shrshryo-1"
 
 - name: HAProxy exporter setup shrshryo-2
   docker_container:
@@ -34,4 +34,4 @@
       - "9101:9101"
     command: --haproxy.scrape-uri="http://shrshryo-2:88/haproxy?stats;csv"
     restart_policy: always
-  when: inventory_hostname == "shrshryo-2"
+  when: inventory_hostname == groups['haproxy'][1] #"shrshryo-2"

@@ -11,3 +11,4 @@
   service:
     name: keepalived-prometheus-exporter
     state: restarted
+    enabled: yes

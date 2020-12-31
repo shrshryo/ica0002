@@ -123,23 +123,21 @@ To restore the tables in Grafana, please run the following command from machine 
 duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/ /home/backup/restore/
 ```
 
+From managed host, run the following code.
+
+```
+ansible-playbook lab12_docker.yaml
+```
+
 Then as `root` user:
 
 ```
 
-cp -a /home/backup/restore/grafana/grafana/* /opt/docker/grafana/
-
-cp -a /home/backup/restore/grafana/grafana/* /var/lib/grafana/
+cp -a /home/backup/restore/grafana/* /opt/docker/grafana/
 
 chown -R 472:472 /opt/docker/grafana/
 
 docker start grafana
-```
-
-Then from managed host, run the following code.
-
-```
-ansible-playbook lab12_docker.yaml
 ```
 
 <br>

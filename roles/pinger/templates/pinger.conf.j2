@@ -1,4 +1,4 @@
 
-database_url=http://shrshryo-3.{{ domain }}:8086
+database_url=http://{{ groups['internal'][0] }}.{{ domain }}:8086
 database_name=latency
 targets=google.com,cloudflare.com,twitter.com
