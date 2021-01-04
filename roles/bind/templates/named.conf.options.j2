@@ -1,11 +1,11 @@
 key "dns_transfer" {
 	algorithm hmac-sha256;
-	secret "{{ ns_transfer_secret }}"; # Change it to "{{ ns_transfer_secret }}"
+	secret "{{ ns_transfer_secret }}";
 };
 
 key "dns_update" {
 	algorithm hmac-sha256;
-	secret "{{ ns_update_secret }}"; # Change it to "{{ ns_update_secret }}"
+	secret "{{ ns_update_secret }}";
 };
 
 acl subnets {

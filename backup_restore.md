@@ -72,7 +72,7 @@ In order to restore data in Agama MySQL database, please run the following comma
 ```
 duplicity --no-encryption restore rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo /home/backup/restore/agama.sql
 
-mysql agama < /home/backuprestore/agama.sql -u agama -p
+mysql agama < /home/backup/restore/agama.sql/agama.sql -u agama -p
 ```
 
 <br>

@@ -45,6 +45,7 @@ scrape_configs:
     static_configs:
       - targets: 
         - {{ groups['application'][0] }}.{{ domain }}:{{ prometheus_jobs[3].port }}
+        - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[3].port }}
 
         #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[3].port }}
 

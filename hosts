@@ -1,6 +1,6 @@
-shrshryo-1 ansible_host=193.40.156.86 ansible_port=7522 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-shrshryo-2 ansible_host=193.40.156.86 ansible_port=5222 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-shrshryo-3 ansible_host=193.40.156.86 ansible_port=16022 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-1 ansible_host=193.40.156.86 ansible_port=5522 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-2 ansible_host=193.40.156.86 ansible_port=4222 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-3 ansible_host=193.40.156.86 ansible_port=11822 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
 
 [web_servers]
 shrshryo-1
@@ -11,8 +11,8 @@ shrshryo-1
 shrshryo-2
 
 [db_servers]
-shrshryo-2 mysql_server_id=80
-shrshryo-1 mysql_server_id=24
+shrshryo-2 mysql_server_id=70
+shrshryo-1 mysql_server_id=31
 
 [dns_masters]
 shrshryo-3

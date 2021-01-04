@@ -12,7 +12,6 @@
     - users
     - reverse
     - mysql
-    - reverse
 
 - name: DNS servers
   hosts: dns_server
@@ -44,26 +43,12 @@
   roles:
     - prometheus
 
-- name: Reverse proxy
-  hosts: all
-  become: yes
-  roles:
-    - reverse
-
 - name: DNS
   hosts: dns_server
   become: yes
   gather_facts: no
   roles:
-    - bind
     - bind_exporter
-
-- name: Resolver
-  hosts: all
-  become: yes
-  gather_facts: no
-  roles:
-    - resolv
 
 - name: Nginx Exporter
   hosts: application
@@ -72,14 +57,6 @@
   roles:
     - nginx_exporter
 
-- name: Database server
-  hosts: db_servers
-  become: yes
-  gather_facts: no
-  roles:
-    - mysql
-    # - mysql_exporter
-
 - name: Prometheus
   hosts: internal
   become: yes
@@ -87,12 +64,12 @@
   roles:
     - prometheus
 
-- name: Grafana
-  hosts: grafana
-  become: yes
-  gather_facts: no
-  roles:
-    - grafana
+# - name: Grafana
+#   hosts: grafana
+#   become: yes
+#   gather_facts: no
+#   roles:
+#     - grafana
     
 - name: Node Exporter
   hosts: all
@@ -100,13 +77,6 @@
   gather_facts: no
   roles:
     - node_exporter
-
-- name: Reverse proxy
-  hosts: all
-  become: yes
-  gather_facts: no
-  roles:
-    - reverse
 
 - name: InfluxDB
   hosts: influxdb

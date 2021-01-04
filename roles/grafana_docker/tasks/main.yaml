@@ -24,3 +24,15 @@
     volumes:
       - /opt/docker/grafana:/var/lib/grafana/
     restart_policy: always
+
+- name: Wait for a few seconds
+  wait_for:
+    timeout: 10
+
+- name: Grafana directory
+  file:
+    name: /opt/docker/grafana
+    state: directory
+    owner: "472"
+    group: "472"
+    recurse: true

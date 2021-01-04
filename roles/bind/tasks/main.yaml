@@ -38,6 +38,38 @@
     - Rndc reload
   when: inventory_hostname in groups['dns_masters']
 
+- name: Execute handlers
+  meta: flush_handlers
+
+- name: Add A record
+  nsupdate:
+    key_algorithm: "hmac-sha256"
+    key_name: "dns_update"
+    key_secret: "{{ ns_update_secret }}"
+    server: "{{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }}"
+    zone: "{{ domain }}."
+    record: "{{ item['subdomain'] }}.{{ domain }}."
+    value: "{{ item['ip'] }}"
+    type: "A"
+  loop: "{{ dns_a }}"
+  when: inventory_hostname == groups['dns_masters'][0]
+
+- name: Add CNAME record
+  nsupdate:
+    key_algorithm: "hmac-sha256"
+    key_name: "dns_update"
+    key_secret: "{{ ns_update_secret }}"
+    server: "{{ hostvars[groups['dns_masters'][0]]['ansible_default_ipv4']['address'] }}"
+    zone: "{{ domain }}."
+    record: "{{ item['cname'] }}.{{ domain }}."
+    value: "{{ item['real'] }}.{{ domain }}."
+    type: "CNAME"
+  loop: "{{ dns_cnames }}"
+  when: inventory_hostname == groups['dns_masters'][0]
+
+# - name: Execute handlers
+#   meta: flush_handlers
+
 - name: Ensure that bind9 is started and enabled
   become: yes
   service:
@@ -45,5 +77,3 @@
     enabled: yes
     state: started
 
-- name: Execute handlers
-  meta: flush_handlers

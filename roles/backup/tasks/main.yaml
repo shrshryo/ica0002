@@ -16,7 +16,8 @@
     host: "localhost"
     login_unix_socket: /var/run/mysqld/mysqld.sock
   #no_log: true
-  when: inventory_hostname == "shrshryo-2"
+  when: inventory_hostname == groups['application'][1]
+  #when: inventory_hostname == "shrshryo-2"
 
 - name: Copy MySQL config file
   template:
@@ -25,7 +26,8 @@
     owner: backup
     group: backup
     mode: '0400'
-  when: inventory_hostname == "shrshryo-2"
+   when: inventory_hostname ==  groups['application'][1]
+  #when: inventory_hostname == "shrshryo-2"
 
 # - name: Add backup to grafana docker group
 #   group:
@@ -56,13 +58,15 @@
   user:
     name: backup
     groups: mysql
-  when: inventory_hostname == "shrshryo-1"
+  when: inventory_hostname == groups['application'][0]
+  #when: inventory_hostname == "shrshryo-1"
 
 - name: Add backup to mysql group
   user:
     name: backup
     groups: mysql
-  when: inventory_hostname == "shrshryo-2"
+  when: inventory_hostname == groups['application'][1]
+  #when: inventory_hostname == "shrshryo-2"
 
 # - name: Add backup to prometheus group
 #   user:
@@ -93,22 +97,25 @@
 - name: Create additional directories Grafana etc
   file:
     path: /home/backup/backup/grafana-etc/
-    state: directory 
-  when: inventory_hostname == "shrshryo-1"
+    state: directory
+  when: inventory_hostname == groups['application'][0]   
+  #when: inventory_hostname == "shrshryo-1"
 
 - name: Create additional directories Grafana
   file:
     path: /home/backup/backup/grafana/
     owner: backup
     group: backup
-    state: directory 
-  when: inventory_hostname == "shrshryo-1"
+    state: directory
+  when: inventory_hostname == groups['application'][0] 
+  #when: inventory_hostname == "shrshryo-1"
 
 - name: Create additional directories influxdb
   file:
      path: /home/backup/backup/influxdb
-     state: directory 
-  when: inventory_hostname == "shrshryo-2"   
+     state: directory
+  when: inventory_hostname == groups['application'][1] 
+  #when: inventory_hostname == "shrshryo-2"
 
 - name: Install duplicity
   become: yes
@@ -120,16 +127,19 @@
   template:
     src: crontab-backup-shrshryo-1.j2
     dest: /etc/cron.d/backup
-  when: inventory_hostname == "shrshryo-1"
+  when: inventory_hostname == groups['application'][0]
+  #when: inventory_hostname == "shrshryo-1"
 
 - name: Crontab for shrshryo-2
   template:
     src: crontab-backup-shrshryo-2.j2
     dest: /etc/cron.d/backup
-  when: inventory_hostname == "shrshryo-2"
+  when: inventory_hostname == groups['application'][1]
+  #when: inventory_hostname == "shrshryo-2"
 
 - name: Crontab for shrshryo-3
   template:
     src: crontab-backup-shrshryo-3.j2
     dest: /etc/cron.d/backup
-  when: inventory_hostname == "shrshryo-3"
+  when: inventory_hostname == groups['internal'][0]
+  #when: inventory_hostname == "shrshryo-3"

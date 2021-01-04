@@ -6,3 +6,6 @@
 
 - name: Rndc reload
   shell: rndc reload
+
+- name: Rndc clean
+  shell: rndc sync -clean
