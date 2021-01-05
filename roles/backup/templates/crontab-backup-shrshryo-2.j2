@@ -1,7 +1,7 @@
 0 22 * * * backup mysqldump agama > /home/backup/backup/agama.sql
 
-0 0 * * 1-6 backup duplicity --no-encryption incremental /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+0 0 * * 1-6 backup duplicity --no-encryption incremental /home/backup/backup/ rsync://shrshryo@backup.{{ domain }}//home/shrshryo/
 
-0 0 * * 0 backup duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+0 0 * * 0 backup duplicity --no-encryption full /home/backup/backup/ rsync://shrshryo@backup.{{ domain }}//home/shrshryo/
 
-0 0 28 * * backup duplicity remove-older-than 30D rsync://shrshryo@backup.jetstreamer.ryo//home/shrshryo/
+0 0 28 * * backup duplicity remove-older-than 30D rsync://shrshryo@backup.{{ domain }}//home/shrshryo/
