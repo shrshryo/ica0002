@@ -1,6 +1,6 @@
-shrshryo-1 ansible_host=193.40.156.86 ansible_port=22 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-shrshryo-2 ansible_host=193.40.156.86 ansible_port=22 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
-shrshryo-3 ansible_host=193.40.156.86 ansible_port=22 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-1 ansible_host=193.40.156.86 ansible_port=2122 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-2 ansible_host=193.40.156.86 ansible_port=8022 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
+shrshryo-3 ansible_host=193.40.156.86 ansible_port=7322 ansible_ssh_user=ubuntu ansible_python_interpreter=python3
 
 [web_servers]
 shrshryo-1

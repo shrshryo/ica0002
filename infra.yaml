@@ -63,13 +63,6 @@
   gather_facts: yes
   roles:
     - prometheus
-
-# - name: Grafana
-#   hosts: grafana
-#   become: yes
-#   gather_facts: no
-#   roles:
-#     - grafana
     
 - name: Node Exporter
   hosts: all
@@ -98,13 +91,6 @@
   gather_facts: no
   roles:
     - pinger
-
-# - name: Creation of backup user
-#   hosts: all
-#   become: yes
-#   gather_facts: no
-#   roles:
-#     - backup
 
 - name: Docker
   become: yes

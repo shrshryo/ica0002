@@ -1,4 +1,4 @@
-mysql_host: 192.168.42. # Second machine
+mysql_host: 192.168.42.80 # Second machine
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -48,7 +48,7 @@ ns_update_secret: !vault |
 domain: jetstreamer.ryo
 startup_name: jetstreamer
 
-shrshryo3PN: 80
+shrshryo3PN: 7380
 
 dns_cnames:
   - cname: ns
@@ -115,13 +115,13 @@ subnets:
 dns_record:
   - name: shrshryo-1
     type: A
-    ip: 192.168.42.
+    ip: 192.168.42.21
   - name: shrshryo-2
     type: A
-    ip: 192.168.42.
+    ip: 192.168.42.80
   - name: shrshryo-3
     type: A
-    ip: 192.168.42.
+    ip: 192.168.42.73
   - name: backup
     type: A
     ip: 192.168.42.156
