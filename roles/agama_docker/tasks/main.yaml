@@ -17,11 +17,6 @@
   get_url:
     url: https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile
     dest: /opt/agama/Dockerfile
-
-# - name: Download Dockerfile
-#   template: 
-#     src: Dockerfile.j2
-#     dest: /opt/agama/Dockerfile
     
 - name: Agama Docker image
   docker_image:

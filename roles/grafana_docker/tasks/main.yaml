@@ -27,7 +27,7 @@
 
 - name: Wait for a few seconds
   wait_for:
-    timeout: 10
+    timeout: 15
 
 - name: Grafana directory
   file:

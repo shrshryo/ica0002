@@ -1,4 +1,4 @@
-mysql_host: 192.168.42.42 # Second machine
+mysql_host: 192.168.42. # Second machine
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -48,7 +48,7 @@ ns_update_secret: !vault |
 domain: jetstreamer.ryo
 startup_name: jetstreamer
 
-shrshryo3PN: 6480
+shrshryo3PN: 80
 
 dns_cnames:
   - cname: ns
@@ -115,23 +115,17 @@ subnets:
 dns_record:
   - name: shrshryo-1
     type: A
-    ip: 192.168.42.55
+    ip: 192.168.42.
   - name: shrshryo-2
     type: A
-    ip: 192.168.42.42
+    ip: 192.168.42.
   - name: shrshryo-3
     type: A
-    ip: 192.168.42.118
+    ip: 192.168.42.
   - name: backup
     type: A
     ip: 192.168.42.156
 
-dns_a:
+backup_record:
   - subdomain: backup
     ip: 192.168.42.156
-
-# dns_cnames:
-#   - cname: influxdb
-#     real: "{{ groups['influxdb'][0] }}"
-#   - cname: prometheus
-#     real: "{{ groups['prometheus'][0] }}"

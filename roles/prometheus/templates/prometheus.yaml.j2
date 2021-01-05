@@ -17,10 +17,6 @@ scrape_configs:
         - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[0].port }}
         - {{ groups['internal'][0] }}.{{ domain }}:{{ prometheus_jobs[0].port }}
 
-        #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[0].port }}
-        #- shrshryo-2.{{ domain }}:{{ prometheus_jobs[0].port }}
-        #- shrshryo-3.{{ domain }}:{{ prometheus_jobs[0].port }}
-
   - job_name: bind
     static_configs:
       - targets: 
@@ -28,18 +24,11 @@ scrape_configs:
         - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[1].port }}
         - {{ groups['internal'][0] }}.{{ domain }}:{{ prometheus_jobs[1].port }}
 
-        #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[1].port }}
-        #- shrshryo-2.{{ domain }}:{{ prometheus_jobs[1].port }}
-        #- shrshryo-3.{{ domain }}:{{ prometheus_jobs[1].port }}
-
   - job_name: mysql
     static_configs:
       - targets: 
         - {{ groups['application'][0] }}.{{ domain }}:{{ prometheus_jobs[2].port }}
         - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[2].port }}
-
-        #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[2].port }}
-        #- shrshryo-2.{{ domain }}:{{ prometheus_jobs[2].port }}
 
   - job_name: nginx
     static_configs:
@@ -47,28 +36,14 @@ scrape_configs:
         - {{ groups['application'][0] }}.{{ domain }}:{{ prometheus_jobs[3].port }}
         - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[3].port }}
 
-        #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[3].port }}
-
-  # - job_name: mysql
-  #  static_configs:
-  #    - targets: 
-  #      - shrshryo-1.{{ domain }}:9104
-
   - job_name: haproxy
     static_configs:
       - targets: 
         - {{ groups['application'][0] }}.{{ domain }}:{{ prometheus_jobs[4].port }}
         - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[4].port }}
 
-        #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[4].port }}
-        #- shrshryo-2.{{ domain }}:{{ prometheus_jobs[4].port }}
-
   - job_name: keepalived
     static_configs:
     - targets: 
         - {{ groups['application'][0] }}.{{ domain }}:{{ prometheus_jobs[5].port }}
         - {{ groups['application'][1] }}.{{ domain }}:{{ prometheus_jobs[5].port }}
-
-        #- shrshryo-1.{{ domain }}:{{ prometheus_jobs[5].port }}
-        #- shrshryo-2.{{ domain }}:{{ prometheus_jobs[5].port }}
-

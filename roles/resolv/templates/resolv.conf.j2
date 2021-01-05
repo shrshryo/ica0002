@@ -1,11 +1,6 @@
 {% for vm in groups['dns_slaves'] %}
      		nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
-#nameserver {{ hostvars['shrshryo-1']['ansible_default_ipv4']['address'] }}
-#nameserver {{ hostvars['shrshryo-2']['ansible_default_ipv4']['address'] }}
-# {% for vm in groups['db_servers'] %}
-#      		nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
-# {% endfor %}
 
 search {{ domain }}
 

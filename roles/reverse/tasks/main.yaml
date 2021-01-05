@@ -16,10 +16,3 @@
     name: nginx
     state: started
     enabled: yes
-
-# - name: Nginx config
-#   template:
-#     src: stub_status.j2
-#     dest: /etc/nginx/sites-enabled/stub_status
-#   notify: 
-#     - Restart Nginx

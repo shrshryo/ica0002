@@ -25,9 +25,3 @@
     name: grafana-server
     state: started
     enabled: yes
-
-# - name: Add backup to group grafana
-#   user:
-#     name: backup
-#     groups: grafana
-#     append: yes

@@ -17,7 +17,6 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
   #no_log: true
   when: inventory_hostname == groups['application'][1]
-  #when: inventory_hostname == "shrshryo-2"
 
 - name: Copy MySQL config file
   template:
@@ -26,15 +25,7 @@
     owner: backup
     group: backup
     mode: '0400'
-   when: inventory_hostname ==  groups['application'][1]
-  #when: inventory_hostname == "shrshryo-2"
-
-# - name: Add backup to grafana docker group
-#   group:
-#     name: grafana
-#     gid: 472
-#     state: present
-#   when: inventory_hostname == groups['grafana'][0]
+  when: inventory_hostname ==  groups['application'][1]
 
 - name: Add backup to grafana group
   user:
@@ -42,43 +33,17 @@
     groups: grafana
   when: inventory_hostname == groups['grafana'][0]
 
-# - name: Add backup to prometheus group
-#   user:
-#     name: backup
-#     groups: prometheus
-#   when: inventory_hostname == "shrshryo-3"
-
-# - name: Add backup to grafana and prometheus group
-#   user:
-#     name: backup
-#     groups: prometheus
-#   when: inventory_hostname == "shrshryo-1"
-
 - name: Add backup to mysql group
   user:
     name: backup
     groups: mysql
   when: inventory_hostname == groups['application'][0]
-  #when: inventory_hostname == "shrshryo-1"
 
 - name: Add backup to mysql group
   user:
     name: backup
     groups: mysql
   when: inventory_hostname == groups['application'][1]
-  #when: inventory_hostname == "shrshryo-2"
-
-# - name: Add backup to prometheus group
-#   user:
-#     name: backup
-#     groups: root
-#   when: inventory_hostname == "shrshryo-3"
-
-# - name: Add backup to influxdb group
-#   user:
-#     name: backup
-#     groups: prometheus
-#   when: inventory_hostname == "shrshryo-3"
 
 - name: Create additional directories backup
   file:
@@ -94,29 +59,6 @@
      group: backup
      state: directory
 
-- name: Create additional directories Grafana etc
-  file:
-    path: /home/backup/backup/grafana-etc/
-    state: directory
-  when: inventory_hostname == groups['application'][0]   
-  #when: inventory_hostname == "shrshryo-1"
-
-- name: Create additional directories Grafana
-  file:
-    path: /home/backup/backup/grafana/
-    owner: backup
-    group: backup
-    state: directory
-  when: inventory_hostname == groups['application'][0] 
-  #when: inventory_hostname == "shrshryo-1"
-
-- name: Create additional directories influxdb
-  file:
-     path: /home/backup/backup/influxdb
-     state: directory
-  when: inventory_hostname == groups['application'][1] 
-  #when: inventory_hostname == "shrshryo-2"
-
 - name: Install duplicity
   become: yes
   apt:
@@ -128,18 +70,15 @@
     src: crontab-backup-shrshryo-1.j2
     dest: /etc/cron.d/backup
   when: inventory_hostname == groups['application'][0]
-  #when: inventory_hostname == "shrshryo-1"
 
 - name: Crontab for shrshryo-2
   template:
     src: crontab-backup-shrshryo-2.j2
     dest: /etc/cron.d/backup
   when: inventory_hostname == groups['application'][1]
-  #when: inventory_hostname == "shrshryo-2"
 
 - name: Crontab for shrshryo-3
   template:
     src: crontab-backup-shrshryo-3.j2
     dest: /etc/cron.d/backup
   when: inventory_hostname == groups['internal'][0]
-  #when: inventory_hostname == "shrshryo-3"

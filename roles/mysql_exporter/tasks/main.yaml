@@ -24,10 +24,6 @@
 - name: Execute handlers
   meta: flush_handlers
 
-# - name: Wait for a few seconds
-#   wait_for:
-#     timeout: 20
-
 - name: Enabled
   service:
     name: prometheus-mysqld-exporter
