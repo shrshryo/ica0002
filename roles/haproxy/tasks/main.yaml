@@ -22,19 +22,8 @@
     image: quay.io/prometheus/haproxy-exporter:v0.9.0
     ports:
       - "9101:9101"
-    command: --haproxy.scrape-uri="http://shrshryo-1:88/haproxy?stats;csv"
+    command: --haproxy.scrape-uri="http://{{ inventory_hostname }}:88/haproxy?stats;csv"
     restart_policy: always
-  when: inventory_hostname == groups['haproxy'][0]
-
-- name: HAProxy exporter setup shrshryo-2
-  docker_container:
-    name: haproxy_exporter
-    image: quay.io/prometheus/haproxy-exporter:v0.9.0
-    ports:
-      - "9101:9101"
-    command: --haproxy.scrape-uri="http://shrshryo-2:88/haproxy?stats;csv"
-    restart_policy: always
-  when: inventory_hostname == groups['haproxy'][1]
 
 - name: start HAProxy
   service:
