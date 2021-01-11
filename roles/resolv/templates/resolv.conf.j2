@@ -1,6 +1,5 @@
 {% for vm in groups['dns_slaves'] %}
-     		nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor %}
-
 search {{ domain }}
 

@@ -8,10 +8,10 @@ key "dns_update" {
 	secret "{{ ns_update_secret }}";
 };
 
-acl subnets {
-    {% for s in subnets %}
-	  {{ s }}
-	{% endfor %}
+acl internals { 
+   {% for s in subnets %}
+     {{ s }};
+   {% endfor %}
 };
 
 options {
@@ -21,11 +21,9 @@ options {
 	        {{ f }};
       {% endfor %}
 	    };
+		allow-query { internals; };
 	    dnssec-validation no;
 	    auth-nxdomain no;    # conform to RFC1035
-	    allow-query {
-	        subnets;
-	    };
 };
 
 statistics-channels {
