@@ -26,11 +26,11 @@
       - /opt/docker/grafana:/var/lib/grafana/
     restart_policy: always
 
-- name: Wait for a few seconds
+- name: Wait for a few seconds NO NEED
   wait_for:
     timeout: 15
 
-- name: Grafana directory
+- name: Grafana directory NO NEED
   file:
     name: /opt/docker/grafana
     state: directory
